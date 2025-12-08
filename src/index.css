@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Brand Colors - Custom Palette */
+  --color-brand-25: #fcfaff;
+  --color-brand-50: #f9f5ff;
+  --color-brand-100: #f4ebff;
+  --color-brand-200: #e9d7fe;
+  --color-brand-300: #d6bbfb;
+  --color-brand-400: #b692f6;
+  --color-brand-500: #9e77ed;
+  --color-brand-600: #7f56d9;
+  --color-brand-700: #6941c6;
+  --color-brand-800: #53389e;
+  --color-brand-900: #42307d;
+  --color-brand-950: #2c1c5f;
+
+  /* Utility Colors */
+  --color-gray-25: #fcfcfd;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  --color-success-25: #f6fef9;
+  --color-success-50: #ecfdf3;
+  --color-success-100: #d1fadf;
+  --color-success-200: #a6f4c5;
+  --color-success-300: #6ce9a6;
+  --color-success-400: #32d583;
+  --color-success-500: #12b76a;
+  --color-success-600: #039855;
+  --color-success-700: #027a48;
+  --color-success-800: #05603a;
+  --color-success-900: #054f31;
+  --color-success-950: #022c1b;
+
+  --color-warning-25: #fffcf5;
+  --color-warning-50: #fffaeb;
+  --color-warning-100: #fef0c7;
+  --color-warning-200: #fedf89;
+  --color-warning-300: #fec84b;
+  --color-warning-400: #fdb022;
+  --color-warning-500: #f79009;
+  --color-warning-600: #dc6803;
+  --color-warning-700: #b54708;
+  --color-warning-800: #93370d;
+  --color-warning-900: #7a2e0e;
+  --color-warning-950: #451203;
+
+  --color-error-25: #fffbfa;
+  --color-error-50: #fef3f2;
+  --color-error-100: #fee4e2;
+  --color-error-200: #fecdca;
+  --color-error-300: #fda29b;
+  --color-error-400: #f97066;
+  --color-error-500: #f04438;
+  --color-error-600: #d92d20;
+  --color-error-700: #b42318;
+  --color-error-800: #912018;
+  --color-error-900: #7a271a;
+  --color-error-950: #55160c;
+}
+
+/* Root Variables for Semantic Usage */
+:root {
+  /* Text Colors */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-text-tertiary: var(--color-gray-600);
+  --color-text-quaternary: var(--color-gray-500);
+  --color-text-white: #ffffff;
+  --color-text-disabled: var(--color-gray-500);
+  --color-text-placeholder: var(--color-gray-500);
+  --color-text-brand-primary: var(--color-brand-900);
+  --color-text-brand-secondary: var(--color-brand-700);
+  --color-text-error-primary: var(--color-error-600);
+  --color-text-warning-primary: var(--color-warning-600);
+  --color-text-success-primary: var(--color-success-600);
+
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-gray-50);
+  --color-bg-tertiary: var(--color-gray-100);
+  --color-bg-quaternary: var(--color-gray-200);
+  --color-bg-brand-primary: var(--color-brand-50);
+  --color-bg-brand-solid: var(--color-brand-600);
+  --color-bg-brand-solid-hover: var(--color-brand-700);
+  --color-bg-error-primary: var(--color-error-50);
+  --color-bg-warning-primary: var(--color-warning-50);
+  --color-bg-success-primary: var(--color-success-50);
+
+  /* Border Colors */
+  --color-border-primary: var(--color-gray-300);
+  --color-border-secondary: var(--color-gray-200);
+  --color-border-brand: var(--color-brand-500);
+  --color-border-error: var(--color-error-500);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animations */
+@keyframes slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Scrollbar Utilities */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
