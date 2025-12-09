@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ChevronDown, Github, Linkedin } from 'lucide-react';
 import { PROFILE } from '../../data/profile';
 import { Badge } from '../ui/Badge';
 import { Scene } from '../3d/Scene';
@@ -31,9 +31,7 @@ export function Hero() {
             <a href={PROFILE.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg hover:border-slate-300 transition-colors">
               <Github size={18} /> GitHub
             </a>
-            <a href={`mailto:${PROFILE.email}`} className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg hover:border-slate-300 transition-colors">
-              <Mail size={18} /> Contato
-            </a>
+
           </div>
         </motion.div>
 
