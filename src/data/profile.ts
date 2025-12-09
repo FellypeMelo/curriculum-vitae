@@ -46,7 +46,7 @@ export const EDUCATION = [
   {
     institution: "FAETERJ-Rio",
     course: "Análise e Desenvolvimento de Sistemas",
-    status: "Cursando - 3º Período",
+    status: "Cursando - 4º Período",
     details: "Engenharia de software, levantamento de requisitos, banco de dados e desenvolvimento full-stack."
   },
   {
