@@ -9,7 +9,6 @@ export const PROFILE = {
   name: "Fellype Samuel Dos Santos de Melo",
   role: "Analista de Sistemas & Desenvolvedor Full Stack",
   tagline: "Especialista em Requisitos, IA e Desenvolvimento Web.",
-  email: "fellypesamuel1@hotmail.com",
   github: "https://github.com/FellypeMelo",
   linkedin: "https://www.linkedin.com/in/fellype-samuel",
   summary: "Atuar como Analista de Sistemas, com foco em levantamento e análise de requisitos, documentação técnica e apoio ao desenvolvimento de soluções de software. Interesse também em atuar como Programador, contribuindo no desenvolvimento front-end e back-end de aplicações."
