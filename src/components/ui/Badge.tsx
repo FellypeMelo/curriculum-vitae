@@ -2,6 +2,9 @@ import React from 'react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+/**
+ * Utility function to merge Tailwind classes.
+ */
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -12,6 +15,13 @@ interface BadgeProps {
   className?: string;
 }
 
+/**
+ * Badge Component.
+ * Displays a small status label with configurable colors.
+ *
+ * @param {BadgeProps} props - Component props.
+ * @returns {JSX.Element} The rendered Badge.
+ */
 export function Badge({ children, color = "indigo", className }: BadgeProps) {
   const colors = {
     indigo: "bg-indigo-50 text-indigo-700 border-indigo-200",

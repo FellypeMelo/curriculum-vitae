@@ -5,6 +5,12 @@ import { SectionHeading } from '../ui/SectionHeading';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 
+/**
+ * Experience Section Component.
+ * Displays professional experience timeline with role, company, and description.
+ *
+ * @returns {JSX.Element} The rendered Experience section.
+ */
 export function Experience() {
   return (
     <div>

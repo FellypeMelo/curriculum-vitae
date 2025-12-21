@@ -3,6 +3,12 @@ import { useFrame } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import { Group } from 'three';
 
+/**
+ * ConnectingLines Component (3D).
+ * Renders a rotating background field of stars.
+ *
+ * @returns {JSX.Element} The rendered 3D stars component.
+ */
 export function ConnectingLines() {
   const ref = useRef<Group>(null);
   useFrame((state) => {
