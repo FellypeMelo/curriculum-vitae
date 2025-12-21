@@ -3,6 +3,12 @@ import { Cpu } from 'lucide-react';
 import { SKILLS } from '../../data/profile';
 import { SectionHeading } from '../ui/SectionHeading';
 
+/**
+ * Skills Section Component.
+ * Displays a list of technical skills with progress bars indicating proficiency levels.
+ *
+ * @returns {JSX.Element} The rendered Skills section.
+ */
 export function Skills() {
   return (
     <div className="mt-24">

@@ -6,6 +6,13 @@ interface SectionHeadingProps {
   icon?: LucideIcon;
 }
 
+/**
+ * SectionHeading Component.
+ * Displays a section title with an optional icon.
+ *
+ * @param {SectionHeadingProps} props - Component props.
+ * @returns {JSX.Element} The rendered SectionHeading.
+ */
 export function SectionHeading({ children, icon: Icon }: SectionHeadingProps) {
   return (
     <div className="flex items-center gap-3 mb-8">

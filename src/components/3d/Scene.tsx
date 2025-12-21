@@ -3,6 +3,13 @@ import { Float } from '@react-three/drei';
 import { ParticleCloud } from './ParticleCloud';
 import { ConnectingLines } from './ConnectingLines';
 
+/**
+ * Scene Component (3D).
+ * Combines 3D elements (ParticleCloud and ConnectingLines) into a Canvas.
+ * Acts as the interactive background for the application.
+ *
+ * @returns {JSX.Element} The rendered 3D scene.
+ */
 export function Scene() {
   return (
     <div className="absolute inset-0 z-0">

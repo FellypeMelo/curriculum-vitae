@@ -5,6 +5,10 @@ import {
   Terminal,
 } from 'lucide-react';
 
+/**
+ * Profile information for the user.
+ * Contains personal details, links to social profiles, and a professional summary.
+ */
 export const PROFILE = {
   name: "Fellype Samuel Dos Santos de Melo",
   role: "Analista de Sistemas & Desenvolvedor Full Stack",
@@ -14,6 +18,10 @@ export const PROFILE = {
   summary: "Atuar como Analista de Sistemas, com foco em levantamento e análise de requisitos, documentação técnica e apoio ao desenvolvimento de soluções de software. Interesse também em atuar como Programador, contribuindo no desenvolvimento front-end e back-end de aplicações."
 };
 
+/**
+ * List of professional skills.
+ * Each skill includes a name, category, and proficiency level (0-100).
+ */
 export const SKILLS = [
   { name: "Python", category: "Backend & IA", level: 90 },
   { name: "Java", category: "Backend", level: 75 },
@@ -25,6 +33,10 @@ export const SKILLS = [
   { name: "SQL / Dados", category: "Database", level: 70 },
 ];
 
+/**
+ * Professional work experience history.
+ * Includes company name, role, period of employment, description of responsibilities, and relevant tags.
+ */
 export const EXPERIENCE = [
   {
     company: "Laboratório Fuzzy",
@@ -42,6 +54,10 @@ export const EXPERIENCE = [
   }
 ];
 
+/**
+ * Educational background.
+ * Lists institutions, courses, status, and details of the curriculum.
+ */
 export const EDUCATION = [
   {
     institution: "FAETERJ-Rio",
@@ -63,6 +79,10 @@ export const EDUCATION = [
   }
 ];
 
+/**
+ * List of certifications and achievements.
+ * Includes the name of the certification, the issuing organization, and an associated icon.
+ */
 export const CERTIFICATIONS = [
   { name: "AI Fundamentals", issuer: "IBM SkillsBuild & Cisco", icon: BrainCircuit },
   { name: "Artificial Intelligence Fundamentals", issuer: "IBM SkillsBuild", icon: BrainCircuit },

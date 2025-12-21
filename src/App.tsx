@@ -8,6 +8,13 @@ import { Footer } from './components/sections/Footer';
 
 import { ScrollProgress } from './components/ui/ScrollProgress';
 
+/**
+ * Main Application Component.
+ * Orchestrates the layout of the landing page, including all sections
+ * (Hero, About, Experience, Education, Skills, Certifications, and Footer).
+ *
+ * @returns {JSX.Element} The rendered application.
+ */
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-600 selection:bg-indigo-100 selection:text-indigo-900">

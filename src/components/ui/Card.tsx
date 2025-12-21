@@ -12,6 +12,13 @@ interface CardProps {
   className?: string;
 }
 
+/**
+ * Card Component.
+ * A styled container with scroll-triggered entrance animation.
+ *
+ * @param {CardProps} props - Component props.
+ * @returns {JSX.Element} The rendered Card.
+ */
 export function Card({ children, className = "" }: CardProps) {
   return (
     <motion.div 

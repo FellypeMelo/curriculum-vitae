@@ -4,6 +4,12 @@ import { CERTIFICATIONS } from '../../data/profile';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Card } from '../ui/Card';
 
+/**
+ * Certifications Section Component.
+ * Displays a grid of certifications with icons and issuer details.
+ *
+ * @returns {JSX.Element} The rendered Certifications section.
+ */
 export function Certifications() {
   return (
     <div className="mt-24 mb-12">

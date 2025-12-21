@@ -4,6 +4,13 @@ import { PROFILE } from '../../data/profile';
 import { Badge } from '../ui/Badge';
 import { Scene } from '../3d/Scene';
 
+/**
+ * Hero Section Component.
+ * The main landing area of the portfolio, featuring a 3D scene,
+ * user profile information, and social links.
+ *
+ * @returns {JSX.Element} The rendered Hero section.
+ */
 export function Hero() {
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">

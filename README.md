@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# Curriculum Vitae - Fellype Samuel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Status](https://img.shields.io/badge/Status-Development-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-Currently, two official plugins are available:
+## 📖 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto é um **Portfólio/Curriculum Vitae** interativo e moderno, desenvolvido para apresentar minhas habilidades, experiências e projetos como **Analista de Sistemas & Desenvolvedor Full Stack**.
 
-## React Compiler
+A aplicação foi construída com foco em performance, responsividade e uma experiência de usuário rica, utilizando tecnologias web modernas e elementos 3D.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+O projeto foi desenvolvido utilizando as seguintes tecnologias e bibliotecas:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **[React](https://react.dev/)**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **[TypeScript](https://www.typescriptlang.org/)**: Superset do JavaScript que adiciona tipagem estática.
+- **[Vite](https://vitejs.dev/)**: Build tool rápida e leve para desenvolvimento web moderno.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utility-first para estilização rápida e responsiva.
+- **[Lucide React](https://github.com/lucide-icons/lucide)**: Coleção de ícones SVG limpos e consistentes.
+- **[React Three Fiber](https://docs.pmnd.rs/react-three-fiber)** (se aplicável, baseado na estrutura de pastas `3d`): Renderizador React para Three.js, permitindo elementos 3D na web.
+- **[Framer Motion](https://www.framer.com/motion/)** (provável, verificar uso): Biblioteca de animações para React.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📂 Estrutura do Projeto
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+A estrutura de diretórios do projeto é organizada da seguinte forma:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/       # Componentes React reutilizáveis
+│   ├── 3d/           # Componentes relacionados a elementos 3D
+│   ├── sections/     # Seções principais da página (Hero, About, etc.)
+│   └── ui/           # Componentes de interface genéricos (Botões, Cards, etc.)
+├── data/             # Dados estáticos (perfil, experiências, habilidades)
+├── types/            # Definições de tipos TypeScript (se houver)
+├── App.tsx           # Componente principal da aplicação
+└── main.tsx          # Ponto de entrada da aplicação
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Instalação e Execução
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Siga os passos abaixo para rodar o projeto localmente:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/FellypeMelo/curriculum-vitae.git
+    cd curriculum-vitae
+    ```
+
+2.  **Instale as dependências:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Execute o servidor de desenvolvimento:**
+
+    ```bash
+    npm run dev
+    ```
+
+4.  **Acesse a aplicação:**
+    Abra seu navegador e acesse `http://localhost:5173`.
+
+## 🏗️ Build para Produção
+
+Para gerar a versão otimizada para produção:
+
+```bash
+npm run build
 ```
+
+Os arquivos gerados estarão na pasta `dist`.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a licença [MIT](./LICENSE).
+
+---
+
+Desenvolvido por [Fellype Melo](https://github.com/FellypeMelo).

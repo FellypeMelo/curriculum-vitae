@@ -5,6 +5,12 @@ import { SectionHeading } from '../ui/SectionHeading';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 
+/**
+ * Education Section Component.
+ * Displays educational background cards with institution details.
+ *
+ * @returns {JSX.Element} The rendered Education section.
+ */
 export function Education() {
   return (
     <div>

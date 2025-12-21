@@ -1,6 +1,12 @@
 import { Github, Linkedin } from 'lucide-react';
 import { PROFILE } from '../../data/profile';
 
+/**
+ * Footer Component.
+ * Displays the footer section with social links and copyright properties.
+ *
+ * @returns {JSX.Element} The rendered Footer.
+ */
 export function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 py-12">

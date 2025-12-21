@@ -4,6 +4,13 @@ import { Points, PointMaterial } from '@react-three/drei';
 import * as random from 'maath/random';
 import { Points as ThreePoints } from 'three';
 
+/**
+ * ParticleCloud Component (3D).
+ * Renders a cloud of particles that rotates slowly.
+ *
+ * @param {any} props - Component props passed to the Points object.
+ * @returns {JSX.Element} The rendered 3D particle cloud.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ParticleCloud(props: any) {
   const ref = useRef<ThreePoints>(null);
