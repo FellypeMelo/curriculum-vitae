@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { animate, stagger } from 'animejs';
 import { EDUCATION } from '../../data/profile';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Card } from '../ui/Card';
@@ -7,34 +8,55 @@ import { Badge } from '../ui/Badge';
 
 /**
  * Education Section Component.
- * Displays educational background cards with institution details.
+ * Displays educational background cards with Anime.js animated reveals.
  *
  * @returns {JSX.Element} The rendered Education section.
  */
 export function Education() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Intersection Observer for scroll trigger
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  // Animate cards when visible
+  useEffect(() => {
+    if (!isVisible || !containerRef.current) return;
+
+    const cards = containerRef.current.querySelectorAll('.edu-card');
+
+    animate(cards, {
+      opacity: [0, 1],
+      translateX: [30, 0],
+      ease: 'outExpo',
+      duration: 800,
+      delay: stagger(120),
+    });
+
+  }, [isVisible]);
+
   return (
-    <div>
+    <div ref={containerRef}>
       <SectionHeading icon={GraduationCap}>Educação</SectionHeading>
-      <motion.div 
-        className="space-y-6"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: 0.2
-            }
-          }
-        }}
-      >
+      <div className="space-y-6">
         {EDUCATION.map((edu, idx) => (
-          <motion.div
+          <div
             key={idx}
-            variants={{
-              hidden: { opacity: 0, x: 20 },
-              visible: { opacity: 1, x: 0 }
-            }}
+            className="edu-card opacity-0"
           >
             <Card className="hover:border-indigo-200 transition-all hover:shadow-lg hover:-translate-y-1">
               <div className="flex justify-between items-start mb-2">
@@ -44,9 +66,10 @@ export function Education() {
               <div className="text-indigo-600 font-medium text-sm mb-2">{edu.course}</div>
               <p className="text-sm text-slate-500">{edu.details}</p>
             </Card>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
+
