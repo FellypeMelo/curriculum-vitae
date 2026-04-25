@@ -28,7 +28,7 @@ export function ParticleCloud(props: any) {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
-          color="#4f46e5" // Indigo-600
+          color="#6ee7b7" // Accent Green
           size={0.005}
           sizeAttenuation={true}
           depthWrite={false}

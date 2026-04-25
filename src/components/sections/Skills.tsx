@@ -1,124 +1,78 @@
 import { motion } from 'framer-motion';
-import { Cpu } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { animate, stagger } from 'animejs';
 import { SKILLS } from '../../data/profile';
-import { SectionHeading } from '../ui/SectionHeading';
 
 /**
  * Skills Section Component.
- * Displays a list of technical skills with Anime.js animated progress bars
- * and counting percentage effect.
- *
- * @returns {JSX.Element} The rendered Skills section.
+ * Visualizing technical expertise with progress bars.
  */
 export function Skills() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Intersection Observer for scroll trigger
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [isVisible]);
-
-  // Trigger Anime.js animations when visible
-  useEffect(() => {
-    if (!isVisible || !containerRef.current) return;
-
-    const cards = containerRef.current.querySelectorAll('.skill-card');
-    const bars = containerRef.current.querySelectorAll('.skill-bar-fill');
-    const percentages = containerRef.current.querySelectorAll('.skill-percentage');
-
-    // Animate cards entrance with 3D effect
-    animate(cards, {
-      opacity: [0, 1],
-      translateY: [30, 0],
-      rotateX: [15, 0],
-      ease: 'outExpo',
-      duration: 800,
-      delay: stagger(80),
-    });
-
-    // Animate skill bar widths
-    bars.forEach((bar, index) => {
-      const targetWidth = SKILLS[index]?.level || 0;
-      animate(bar, {
-        width: [`0%`, `${targetWidth}%`],
-        ease: 'outExpo',
-        duration: 1500,
-        delay: 300 + index * 100,
-      });
-    });
-
-    // Animate percentage counters
-    percentages.forEach((el, index) => {
-      const target = SKILLS[index]?.level || 0;
-      const obj = { value: 0 };
-      animate(obj, {
-        value: target,
-        ease: 'outExpo',
-        duration: 1500,
-        delay: 300 + index * 100,
-        onUpdate: () => {
-          el.textContent = `${Math.round(obj.value)}%`;
-        },
-      });
-    });
-
-  }, [isVisible]);
+  // Group skills by category
+  const categories = Array.from(new Set(SKILLS.map(s => s.category)));
 
   return (
-    <div className="mt-24" ref={containerRef}>
-      <SectionHeading icon={Cpu}>Stack Tecnológico</SectionHeading>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {SKILLS.map((skill, idx) => (
-          <div 
-            key={idx}
-            className="skill-card bg-white p-4 rounded-xl border border-slate-200 flex flex-col items-start gap-2 shadow-sm transition-all hover:border-indigo-200 hover:shadow-lg hover:-translate-y-1 opacity-0"
-            style={{ 
-              perspective: '1000px',
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            <div className="flex justify-between w-full items-center">
-              <span className="font-semibold text-slate-800">{skill.name}</span>
-              <span className="skill-percentage text-xs text-indigo-600 font-mono font-bold">0%</span>
-            </div>
-            <span className="text-xs text-slate-400 font-mono">{skill.category}</span>
-            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-2">
-              <div 
-                className="skill-bar-fill bg-gradient-to-r from-indigo-500 to-indigo-600 h-full rounded-full"
-                style={{ width: '0%' }}
-              />
+    <section className="py-8 md:py-12 max-w-5xl">
+      <h2 
+        id="skills-header"
+        className="text-3xl md:text-4xl font-bold text-fg mb-10 md:mb-12 tracking-tighter"
+      >
+        Stack <span className="text-accent">Tecnológico</span>
+      </h2>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        {categories.map((category, catIndex) => (
+          <div key={category} className="space-y-5">
+            <h3 className="text-xs md:text-sm font-mono text-accent uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
+              <span className="h-px w-4 bg-accent/30" />
+              {category}
+            </h3>
+            
+            <div className="space-y-5">
+              {SKILLS.filter(s => s.category === category).map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (catIndex * 0.2) + (index * 0.05) }}
+                  className="group"
+                >
+                  <div className="flex justify-between mb-1.5">
+                    <span className="text-sm md:text-base font-bold text-fg group-hover:text-accent transition-colors">
+                      {skill.name}
+                    </span>
+                    <span className="text-xs font-mono text-dim">
+                      {skill.level}%
+                    </span>
+                  </div>
+                  
+                  <div className="h-1.5 w-full bg-surface border border-border rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      className="h-full bg-gradient-to-r from-accent/40 to-accent shadow-[0_0_5px_rgba(var(--accent-rgb),0.3)]"
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         ))}
       </div>
-      
+
+      {/* Additional Habilities */}
       <motion.div 
-        className="mt-6 flex flex-wrap gap-2 text-sm text-slate-500"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 1 }}
+        className="mt-12 p-6 md:p-8 border border-border bg-surface/20 rounded-xl text-center"
       >
-         <span className="font-semibold mr-2">Outras Habilidades:</span>
-         <span>C (Avançado) • PHP • Análise de Dados • Watson Studio • NLP • Ethical Hacking (Pentest) • Segurança de Redes</span>
+        <h3 className="text-base font-bold text-fg mb-4">Outras Habilidades</h3>
+        <p className="text-sm md:text-base text-dim leading-relaxed">
+          C (Avançado) • PHP • Análise de Dados • Watson Studio • NLP • Ethical Hacking (Pentest) • Segurança de Redes
+        </p>
       </motion.div>
-    </div>
+    </section>
   );
 }
-

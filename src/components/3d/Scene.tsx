@@ -19,8 +19,8 @@ export function Scene() {
         </Float>
         <ConnectingLines />
       </Canvas>
-      {/* Overlay gradiente para garantir legibilidade */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/10 via-slate-50/50 to-slate-50 pointer-events-none" />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/60 to-bg pointer-events-none" />
     </div>
   );
 }

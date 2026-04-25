@@ -1,84 +1,94 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, ExternalLink } from 'lucide-react';
 import { PROFILE } from '../../data/profile';
-import { Badge } from '../ui/Badge';
 import { Scene } from '../3d/Scene';
 import { TextReveal } from '../animations/TextReveal';
-import { FloatingParticles } from '../animations/FloatingParticles';
 
 /**
- * Hero Section Component.
- * The main landing area of the portfolio, featuring a 3D scene,
- * elegant Anime.js text animations, and social links.
- *
- * @returns {JSX.Element} The rendered Hero section.
+ * Hero Section Component - Terminal Studio Style.
  */
 export function Hero() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Subtle floating particles background */}
-      <FloatingParticles 
-        count={25} 
-        colors={['#818cf8', '#a78bfa', '#c4b5fd', '#6366f1']}
-        className="z-0 opacity-40"
-      />
-      
-      <Scene />
+    <section className="relative min-h-[70vh] flex flex-col items-center justify-center py-8 overflow-hidden">
+      {/* 3D Scene as Background */}
+      <div className="absolute inset-0 z-0 opacity-30 mix-blend-screen">
+        <Scene />
+      </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl mt-12">
+      <div className="relative z-10 text-center max-w-3xl px-6">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <Badge color="indigo">Disponível para Projetos</Badge>
+          <div className="inline-block px-2 py-0.5 mb-4 border border-accent/30 bg-accent/5 rounded text-[9px] uppercase tracking-widest text-accent font-mono">
+            // STATUS: AVAILABLE_FOR_PROJECTS
+          </div>
           
-          {/* Animated name with character-by-character reveal */}
-          <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mt-6 mb-4 tracking-tight leading-tight">
+          <h1 
+            id="hero-name"
+            className="text-4xl md:text-6xl font-bold text-fg mt-1 mb-4 tracking-tighter leading-none glitch"
+            data-text="Fellype Samuel"
+            data-target="hero-title"
+          >
             <TextReveal 
-              text="Fellype Melo" 
-              delay={400}
+              text="Fellype Samuel" 
+              delay={200}
               duration={800}
-              staggerMs={45}
+              staggerMs={30}
             />
           </h1>
           
-          <motion.p 
-            className="text-xl md:text-2xl text-slate-500 font-light mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
+          <motion.div 
+            className="font-mono text-xs md:text-sm text-dim/90 mb-8 max-w-lg mx-auto uppercase tracking-[0.15em] leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
           >
-            {PROFILE.role}. {PROFILE.tagline}
-          </motion.p>
+            {PROFILE.role} <br />
+            <span className="text-accent/70 mt-1.5 block italic normal-case tracking-normal font-sans text-sm md:text-base">
+              {PROFILE.tagline}
+            </span>
+          </motion.div>
           
           <motion.div 
-            className="flex flex-wrap justify-center gap-4 text-sm font-medium"
-            initial={{ opacity: 0, y: 20 }}
+            className="flex flex-wrap justify-center gap-4"
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.6 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
           >
-            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
-              <Linkedin size={18} /> LinkedIn
+            <a 
+              href={PROFILE.linkedin} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="group flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-fg hover:text-accent transition-colors"
+            >
+              <div className="p-1.5 border border-border group-hover:border-accent transition-colors rounded-full">
+                <Linkedin size={12} /> 
+              </div>
+              LinkedIn
             </a>
-            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-lg hover:border-slate-300 transition-colors">
-              <Github size={18} /> GitHub
+            <a 
+              href={PROFILE.github} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="group flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-fg hover:text-accent transition-colors"
+            >
+              <div className="p-1.5 border border-border group-hover:border-accent transition-colors rounded-full">
+                <Github size={12} /> 
+              </div>
+              GitHub
             </a>
+            <button className="group flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-fg hover:text-accent transition-colors opacity-50 cursor-not-allowed">
+              <div className="p-1.5 border border-border rounded-full">
+                <ExternalLink size={12} /> 
+              </div>
+              Resume.pdf
+            </button>
           </motion.div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-400"
-        >
-          <ChevronDown size={24} />
         </motion.div>
       </div>
     </section>
   );
 }
-
-
