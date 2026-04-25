@@ -1,97 +1,66 @@
-import { Briefcase } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { animate, stagger } from 'animejs';
+import { motion } from 'framer-motion';
 import { EXPERIENCE } from '../../data/profile';
-import { SectionHeading } from '../ui/SectionHeading';
-import { Card } from '../ui/Card';
-import { Badge } from '../ui/Badge';
 
 /**
  * Experience Section Component.
- * Displays professional experience timeline with Anime.js animated reveals.
- *
- * @returns {JSX.Element} The rendered Experience section.
+ * Displays professional history in a terminal log format.
  */
 export function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Intersection Observer for scroll trigger
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [isVisible]);
-
-  // Animate cards and dots when visible
-  useEffect(() => {
-    if (!isVisible || !containerRef.current) return;
-
-    const cards = containerRef.current.querySelectorAll('.exp-card');
-    const dots = containerRef.current.querySelectorAll('.timeline-dot');
-
-    // Animate cards with slide and fade
-    animate(cards, {
-      opacity: [0, 1],
-      translateX: [-30, 0],
-      ease: 'outExpo',
-      duration: 800,
-      delay: stagger(150),
-    });
-
-    // Animate dots with scale and pulse
-    animate(dots, {
-      scale: [0, 1.2, 1],
-      opacity: [0, 1],
-      ease: 'outElastic(1, .5)',
-      duration: 600,
-      delay: stagger(150),
-    });
-
-  }, [isVisible]);
-
   return (
-    <div ref={containerRef}>
-      <SectionHeading icon={Briefcase}>Experiência Profissional</SectionHeading>
-      <div className="space-y-6 border-l-2 border-slate-200 ml-3 pl-8 relative">
-        {EXPERIENCE.map((job, idx) => (
-          <div key={idx} className="relative group exp-card opacity-0">
-            {/* Timeline dot with Anime.js animation */}
-            <span className="timeline-dot absolute -left-[41px] top-6 h-5 w-5 rounded-full border-4 border-white bg-indigo-600 shadow-sm z-10 transition-transform group-hover:scale-125" style={{ opacity: 0 }} />
+    <section className="py-8 md:py-12 max-w-5xl">
+      <h2 
+        id="experience-header"
+        className="text-3xl md:text-4xl font-bold text-fg mb-10 tracking-tighter"
+      >
+        Experiência <span className="text-accent">Profissional</span>
+      </h2>
+
+      <div className="space-y-6">
+        {EXPERIENCE.map((exp, index) => (
+          <motion.div
+            key={`${exp.company}-${index}`}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className="relative pl-6 pb-6 border-l border-border/50 last:border-0 last:pb-0"
+          >
+            {/* Timeline Dot */}
+            <div className="absolute left-[-4px] top-0 w-2 h-2 bg-accent rounded-full border border-bg shadow-[0_0_8px_rgba(var(--accent-rgb),0.5)]" />
             
-            <Card className="hover:border-indigo-200 transition-all hover:shadow-lg cursor-default hover:-translate-y-1">
-              <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-2 gap-2">
+            <div className="bg-surface/30 p-5 md:p-6 rounded-lg border border-border hover:border-accent/30 transition-all group">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">{job.role}</h3>
-                  <div className="text-indigo-600 font-medium text-sm">{job.company}</div>
+                  <h3 className="text-lg md:text-xl font-bold text-fg group-hover:text-accent transition-colors">
+                    {exp.role}
+                  </h3>
+                  <p className="text-xs md:text-sm text-accent/80 font-mono mt-0.5">
+                    {exp.company}
+                  </p>
                 </div>
-                <Badge color="slate">{job.period}</Badge>
+                <div className="px-2.5 py-0.5 bg-accent/5 border border-accent/20 rounded-full text-[10px] text-accent font-mono w-fit">
+                  {exp.period}
+                </div>
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                {job.description}
+
+              <p className="text-sm md:text-base text-fg/80 leading-relaxed mb-5">
+                {exp.description}
               </p>
+
               <div className="flex flex-wrap gap-2">
-                {job.tags.map(tag => (
-                  <span key={tag} className="text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded border border-slate-100">
-                    {tag}
+                {exp.tags.map(tag => (
+                  <span 
+                    key={tag}
+                    className="px-2 py-0.5 bg-surface border border-border rounded text-[0.65rem] font-mono text-dim group-hover:border-accent/20 transition-colors"
+                  >
+                    #{tag}
                   </span>
                 ))}
               </div>
-            </Card>
-          </div>
+            </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
-
