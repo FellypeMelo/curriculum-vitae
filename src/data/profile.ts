@@ -1,153 +1,325 @@
-import { 
-  BrainCircuit, 
-  Code2, 
-  Database, 
-  Terminal,
-  Cpu,
-  Globe,
+import {
+  Boxes,
+  BrainCircuit,
+  Code2,
+  Database,
+  Layers,
   Lock,
-  MessageSquare,
-  Microscope,
-  Zap
+  ServerCog,
+  ShieldCheck,
+  Cpu,
+  type LucideIcon,
 } from 'lucide-react';
 
-/**
- * Profile information for the user.
- * Contains personal details, links to social profiles, and a professional summary.
- */
+/* ------------------------------------------------------------------ */
+/* Identity                                                            */
+/* ------------------------------------------------------------------ */
+
 export const PROFILE = {
-  name: "Fellype Samuel Melo",
-  role: "Analista de Sistemas & Desenvolvedor Full Stack",
-  tagline: "Foco em Inteligência Artificial, P&D e Soluções para Laboratórios.",
-  github: "https://github.com/FellypeMelo",
-  linkedin: "https://www.linkedin.com/in/fellype-samuel",
-  summary: "Enquanto muitos juniores esperam escopo pronto, eu ajudo a construir a arquitetura – e entrego soluções completas como o Audio Lab. Sou um profissional que pensa em datasets, parâmetros e arquitetura – e que tem experiência comprovada em dois projetos reais de IA (classificação de embriões + transcrição de áudio para laboratórios).",
-  availability: "Disponível para Projetos Freelancer, Contrato Temporário, CLT ou PJ com foco em P&D."
+  name: 'Fellype Samuel de Melo',
+  fullName: 'Fellype Samuel dos Santos de Melo',
+  roles: [
+    'Software Engineer',
+    'Full Stack Developer',
+    'Arquitetura de Software',
+    'Inteligência Artificial',
+  ],
+  location: 'Rio de Janeiro, RJ',
+  phone: '(21) 96738-0963',
+  phoneHref: 'tel:+5521967380963',
+  email: 'fellypesamuel1@hotmail.com',
+  github: 'https://github.com/FellypeMelo',
+  githubLabel: 'github.com/FellypeMelo',
+  linkedin: 'https://www.linkedin.com/in/fellype-samuel',
+  linkedinLabel: 'linkedin.com/in/fellype-samuel',
+
+  // Hero thesis — the architecture-first stance.
+  thesisLead: 'Um bom software começa antes da implementação.',
+  thesisBody:
+    'Meu principal interesse está em compreender problemas, levantar requisitos, modelar soluções e definir arquiteturas que permitam a evolução sustentável de sistemas.',
+
+  summary:
+    'Software Engineer e estudante do último semestre de Análise e Desenvolvimento de Sistemas, com foco em arquitetura de software, engenharia de software e Inteligência Artificial aplicada. Atuação como Tech Lead em projetos de desenvolvimento full stack (React, FastAPI) e de Deep Learning aplicado à pesquisa científica, com publicação como primeiro autor.',
+
+  practices:
+    'Aplico Clean Architecture, SOLID, Domain-Driven Design, Design Patterns, Clean Code, TDD e Extreme Programming na busca por soluções escaláveis e bem fundamentadas.',
 };
 
-/**
- * List of professional skills.
- * Each skill includes a name, category, and proficiency level (0-100).
- */
-export const SKILLS = [
-  { name: "Python", category: "Backend & IA", level: 95 },
-  { name: "Deep Learning", category: "IA", level: 85 },
-  { name: "Transformers / CNN", category: "IA", level: 80 },
-  { name: "NLP", category: "IA", level: 75 },
-  { name: "ReactJS", category: "Frontend", level: 85 },
-  { name: "JavaScript / TS", category: "Frontend", level: 90 },
-  { name: "Java", category: "Backend", level: 75 },
-  { name: "PHP", category: "Backend", level: 70 },
-  { name: "WordPress / Elementor", category: "CMS", level: 95 },
-  { name: "SQL / Dados", category: "Database", level: 80 },
-  { name: "Watson Studio", category: "IA", level: 70 },
-  { name: "Ethical Hacking", category: "Security", level: 65 },
-  { name: "Segurança de Redes", category: "Security", level: 70 },
-  { name: "C (Avançado)", category: "Systems", level: 85 },
+/* Real, verifiable facts (not invented metrics) shown as the hero fact strip. */
+export const FACTS: { label: string; value: string }[] = [
+  { label: 'Papel', value: 'Tech Lead' },
+  { label: 'Pesquisa', value: '1º autor · artigo publicado' },
+  { label: 'Foco', value: 'Arquitetura + IA aplicada' },
+  { label: 'Formação', value: 'ADS · último semestre' },
 ];
 
-/**
- * Professional work experience history.
- * Includes company name, role, period of employment, description of responsibilities, and relevant tags.
- */
-export const EXPERIENCE = [
+/* ------------------------------------------------------------------ */
+/* Experience                                                          */
+/* ------------------------------------------------------------------ */
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  summary: string;
+  points: string[];
+  tags: string[];
+}
+
+export const EXPERIENCE: ExperienceItem[] = [
   {
-    company: "Audio Lab (Projeto Próprio)",
-    role: "Idealizador & Full Stack AI Engineer",
-    period: "Fev 2026 – Mar 2026",
-    description: "Solução completa de reconhecimento de fala e automação para ambientes científicos. Traduz problemas do mundo real (como registro em biotérios) em software funcional, permitindo transcrição voz-para-texto e lembretes estruturados para aumentar a produtividade e rastreabilidade em laboratórios.",
-    tags: ["Python", "Speech Recognition", "Audio Processing", "Laboratórios", "Automação"]
+    company: 'Laboratório Fuzzy',
+    role: 'Tech Lead & Pesquisador em IA',
+    period: '2025 - Atual',
+    summary:
+      'Liderança técnica de um sistema de Deep Learning para classificação automática de embriões humanos, em parceria com pesquisa de mestrado.',
+    points: [
+      'Definição da arquitetura da solução e treinamento de modelos em PyTorch (ResNet-18 com validação cruzada estratificada k-fold).',
+      'Desenvolvimento da API e integração da Inteligência Artificial à aplicação web.',
+      'Segmentação de imagens de microscopia eletrônica (YOLOv8-seg) para identificar estruturas do parasita Trypanosoma cruzi.',
+      'Preparação de artigo científico com os resultados do pipeline de classificação, para submissão à conferência Latin.Science 2026.',
+    ],
+    tags: ['PyTorch', 'ResNet-18', 'YOLOv8-seg', 'Deep Learning', 'FastAPI', 'Pesquisa'],
   },
   {
-    company: "Laboratório Fuzzy",
-    role: "Pesquisador e Desenvolvedor Júnior em IA",
-    period: "2025 – Atual",
-    description: "Desenvolvimento de modelos de inteligência artificial para classificação de embriões com Python, Transformers e técnicas de Deep Learning. Atuação direta na preparação de datasets, ajustes de parâmetros e planejamento da arquitetura dos modelos.",
-    tags: ["Python", "Deep Learning", "Transformers", "Dataset Prep", "Pesquisa"]
+    company: 'Freelancer',
+    role: 'Desenvolvedor Full Stack',
+    period: '2025 - Atual',
+    summary:
+      'Aplicações web completas conduzindo o ciclo inteiro: levantamento de requisitos, implementação, testes e entrega.',
+    points: [
+      'Desenvolvimento com React, WordPress e Elementor, com atuação direta junto aos clientes.',
+      'Foco em usabilidade, responsividade e performance das soluções entregues.',
+    ],
+    tags: ['React', 'WordPress', 'Elementor', 'UI/UX'],
   },
-  {
-    company: "Freelancer",
-    role: "Desenvolvedor Web Júnior",
-    period: "2025 – Atual",
-    description: "Criação e manutenção de sites utilizando WordPress e Elementor, com foco em usabilidade, design funcional e responsividade. Responsável por todo o ciclo de desenvolvimento, desde o contato com o cliente até a entrega final.",
-    tags: ["WordPress", "Elementor", "UI/UX", "Full Cycle", "Design"]
-  }
 ];
 
-/**
- * Educational background.
- * Lists institutions, courses, status, and details of the curriculum.
- */
-export const EDUCATION = [
+/* ------------------------------------------------------------------ */
+/* Projects                                                            */
+/* ------------------------------------------------------------------ */
+
+export interface ProjectItem {
+  name: string;
+  kind: string;
+  status: string;
+  role: string;
+  description: string;
+  points: string[];
+  stack: string[];
+  icon: LucideIcon;
+}
+
+export const PROJECTS: ProjectItem[] = [
   {
-    institution: "FAETERJ-Rio",
-    course: "Análise e Desenvolvimento de Sistemas",
-    status: "Cursando - 4º Período",
-    details: "Engenharia de software, levantamento de requisitos, banco de dados e desenvolvimento full-stack. Foco em inovação tecnológica."
+    name: 'OpenChatBot',
+    kind: 'Plataforma de agentes conversacionais locais',
+    status: 'Em desenvolvimento',
+    role: 'Idealizador & Arquiteto',
+    description:
+      'Plataforma para agentes conversacionais com execução local, memória persistente e gerenciamento de contexto.',
+    points: [
+      'Arquitetura modular com modelagem comportamental para personalização de agentes inteligentes.',
+      'Clean Architecture, SOLID, Domain-Driven Design, Design Patterns e Test-Driven Development.',
+    ],
+    stack: ['React', 'Vite', 'Python', 'FastAPI'],
+    icon: BrainCircuit,
   },
   {
-    institution: "Ensino Médio Técnico",
-    course: "Informática Industrial",
-    status: "2020 - 2023",
-    details: "Formação técnica voltada para programação, redes e manutenção de sistemas computacionais."
+    name: 'Educa',
+    kind: 'Sistema de gerenciamento escolar',
+    status: 'Trabalho de Conclusão de Curso',
+    role: 'Tech Lead',
+    description:
+      'Sistema de gestão escolar conduzido como TCC, da arquitetura à entrega.',
+    points: [
+      'Liderança técnica do desenvolvimento: arquitetura da solução e levantamento de requisitos.',
+      'Documentação técnica e implementação da plataforma.',
+    ],
+    stack: ['Arquitetura', 'Requisitos', 'Full Stack'],
+    icon: Boxes,
   },
-  {
-    institution: "Microcamp",
-    course: "Hardware e Robótica",
-    status: "2019 - 2021",
-    details: "Montagem e manutenção de computadores, além de lógica aplicada à robótica."
-  }
 ];
 
-/**
- * List of certifications and achievements.
- * Includes the name of the certification, the issuing organization, and an associated icon.
- */
-export const CERTIFICATIONS = [
-  { name: "AI Fundamentals", issuer: "IBM SkillsBuild & Cisco", icon: BrainCircuit },
-  { name: "Artificial Intelligence Fundamentals", issuer: "IBM SkillsBuild", icon: Cpu },
-  { name: "Ethical Hacker", issuer: "Cisco Networking Academy", icon: Lock },
-  { name: "Network Defense", issuer: "Cisco Networking Academy", icon: Database },
-  { name: "Java Foundations", issuer: "Oracle Academy", icon: Code2 },
+/* ------------------------------------------------------------------ */
+/* Publications                                                        */
+/* ------------------------------------------------------------------ */
+
+export interface PublicationItem {
+  status: 'published' | 'in-prep';
+  statusLabel: string;
+  title: string;
+  citation: string;
+  venue: string;
+  year: string;
+  doi?: string;
+  doiHref?: string;
+}
+
+export const PUBLICATIONS: PublicationItem[] = [
+  {
+    status: 'published',
+    statusLabel: 'Publicado · Primeiro autor',
+    title:
+      'Arquitetura Algorítmica para Atenção Sustentável: o Modelo Be-Productive como Resposta à Sobrecarga Cognitiva no Capitalismo de Vigilância',
+    citation: 'MELO, F. S. S. et al.',
+    venue: 'Revista Tópicos',
+    year: '2026',
+    doi: '10.70773/revistatopicos/781363235',
+    doiHref: 'https://doi.org/10.70773/revistatopicos/781363235',
+  },
+  {
+    status: 'in-prep',
+    statusLabel: 'Em preparação',
+    title:
+      'Pipeline de classificação automática de embriões humanos com Deep Learning',
+    citation: 'Laboratório Fuzzy',
+    venue: 'Latin.Science',
+    year: '2026',
+  },
 ];
 
-/**
- * Project categories for P&D availability.
- */
-export const PROJECT_TYPES = [
+/* ------------------------------------------------------------------ */
+/* Skills — grouped, no invented proficiency scores                    */
+/* ------------------------------------------------------------------ */
+
+export interface SkillGroup {
+  label: string;
+  icon: LucideIcon;
+  items: string[];
+}
+
+export const SKILL_GROUPS: SkillGroup[] = [
   {
-    title: "Modelos de IA com Python",
-    description: "Classificação, visão computacional, NLP, reconhecimento de fala.",
-    icon: Microscope
+    label: 'Engenharia de Software',
+    icon: Layers,
+    items: ['Clean Architecture', 'SOLID', 'DDD', 'Design Patterns', 'Clean Code', 'TDD', 'XP'],
   },
   {
-    title: "Datasets para Pesquisa",
-    description: "Preparação, limpeza e estruturação de grandes volumes de dados.",
-    icon: Database
+    label: 'Inteligência Artificial',
+    icon: BrainCircuit,
+    items: ['PyTorch', 'Deep Learning', 'Machine Learning', 'CNN', 'Transformers', 'NLP', 'Watson Studio'],
   },
   {
-    title: "Arquitetura de Soluções",
-    description: "Planejamento de soluções inteligentes e integração de IA em sistemas.",
-    icon: Zap
+    label: 'Linguagens',
+    icon: Code2,
+    items: ['Python', 'JavaScript', 'Java', 'PHP', 'C'],
   },
   {
-    title: "Automação Científica",
-    description: "Transcrição, lembretes por voz e registro estruturado para laboratórios.",
-    icon: MessageSquare
-  }
+    label: 'Front-end',
+    icon: Boxes,
+    items: ['React', 'Vite', 'HTML', 'CSS', 'WordPress', 'Elementor'],
+  },
+  {
+    label: 'Back-end',
+    icon: ServerCog,
+    items: ['FastAPI', 'APIs REST'],
+  },
+  {
+    label: 'Dados',
+    icon: Database,
+    items: ['Análise de Dados'],
+  },
 ];
 
-/**
- * Insights for the TERMINAL.STUDIO layer.
- * Maps target IDs to descriptive design/technical notes.
- */
-export const INSIGHTS = {
-  "hero-title": "Typography: Geist Mono + Inter combination for high-contrast 'Studio' vibe.",
-  "about-header": "Design: Sticky sidebar pattern inspired by minimalist architectural portfolios.",
-  "experience-header": "Strategy: Raw log-style layout to emphasize technical transparency.",
-  "skills-header": "Aesthetic: Matrix-green accents used sparingly to avoid 'hacker' clichés.",
-  "education-header": "Layout: Balanced grid system ensuring readability across large screens.",
-  "certifications-header": "Micro-interactions: Glitch hover effects added to emphasize interactivity.",
-  "languages-list": "Detail: Minimalist bar charts showing proficiency levels.",
-  "availability-info": "Status: Real-time availability indicator for professional contact."
-};
+/* ------------------------------------------------------------------ */
+/* Education                                                           */
+/* ------------------------------------------------------------------ */
+
+export interface EducationItem {
+  institution: string;
+  course: string;
+  period: string;
+  details: string;
+}
+
+export const EDUCATION: EducationItem[] = [
+  {
+    institution: 'FAETERJ-Rio',
+    course: 'Análise e Desenvolvimento de Sistemas',
+    period: 'Último semestre',
+    details:
+      'Engenharia de software, levantamento de requisitos, banco de dados e desenvolvimento full stack.',
+  },
+  {
+    institution: 'Ensino Médio Técnico',
+    course: 'Informática Industrial',
+    period: '2020 - 2023',
+    details:
+      'Formação técnica voltada para programação, redes e manutenção de sistemas computacionais.',
+  },
+  {
+    institution: 'Microcamp',
+    course: 'Hardware e Robótica',
+    period: '2019 - 2021',
+    details: 'Montagem e manutenção de computadores e lógica aplicada à robótica.',
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Certifications                                                      */
+/* ------------------------------------------------------------------ */
+
+export interface CertItem {
+  name: string;
+  issuer: string;
+  topics: string;
+  icon: LucideIcon;
+}
+
+export const CERTIFICATIONS: CertItem[] = [
+  {
+    name: 'AI Fundamentals with IBM SkillsBuild',
+    issuer: 'Cisco & IBM',
+    topics: 'Fundamentos de IA, NLP, visão computacional, ética em IA e Watson Studio.',
+    icon: BrainCircuit,
+  },
+  {
+    name: 'Artificial Intelligence Fundamentals',
+    issuer: 'IBM SkillsBuild',
+    topics: 'Aplicações de IA, chatbots, redes neurais, machine learning e deep learning.',
+    icon: Cpu,
+  },
+  {
+    name: 'Java Foundations',
+    issuer: 'Oracle Academy',
+    topics: 'Fundamentos de programação orientada a objetos em Java.',
+    icon: Code2,
+  },
+  {
+    name: 'Ethical Hacker',
+    issuer: 'Cisco Networking Academy',
+    topics: 'Conceitos de pentest, vulnerabilidades e segurança de redes.',
+    icon: Lock,
+  },
+  {
+    name: 'Network Defense',
+    issuer: 'Cisco Networking Academy',
+    topics: 'Defesa de rede, criptografia, firewall, segurança em nuvem e autenticação.',
+    icon: ShieldCheck,
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Languages                                                           */
+/* ------------------------------------------------------------------ */
+
+export const LANGUAGES: { name: string; level: string }[] = [
+  { name: 'Português', level: 'Nativo' },
+  { name: 'Inglês', level: 'Avançado-Intermediário (B2)' },
+];
+
+/* ------------------------------------------------------------------ */
+/* Navigation sections                                                 */
+/* ------------------------------------------------------------------ */
+
+export const SECTIONS: { id: string; label: string }[] = [
+  { id: 'inicio', label: 'Início' },
+  { id: 'perfil', label: 'Perfil' },
+  { id: 'experiencia', label: 'Experiência' },
+  { id: 'projetos', label: 'Projetos' },
+  { id: 'publicacoes', label: 'Publicações' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'formacao', label: 'Formação' },
+  { id: 'contato', label: 'Contato' },
+];

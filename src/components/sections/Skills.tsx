@@ -1,78 +1,74 @@
-import { motion } from 'framer-motion';
-import { SKILLS } from '../../data/profile';
+import { SKILL_GROUPS, LANGUAGES } from '../../data/profile';
+import { Reveal } from '../common/Reveal';
 
-/**
- * Skills Section Component.
- * Visualizing technical expertise with progress bars.
- */
 export function Skills() {
-  // Group skills by category
-  const categories = Array.from(new Set(SKILLS.map(s => s.category)));
-
   return (
-    <section className="py-8 md:py-12 max-w-5xl">
-      <h2 
-        id="skills-header"
-        className="text-3xl md:text-4xl font-bold text-fg mb-10 md:mb-12 tracking-tighter"
-      >
-        Stack <span className="text-accent">Tecnológico</span>
-      </h2>
+    <section id="stack" className="border-b border-border py-24 md:py-32">
+      <div className="mx-auto max-w-[1240px] px-5 md:px-8">
+        <Reveal>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-fg md:text-5xl">
+            Stack &amp; práticas
+          </h2>
+          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-dim md:text-lg">
+            Ferramentas e princípios que uso para levar uma ideia de requisito a
+            sistema em produção.
+          </p>
+        </Reveal>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {categories.map((category, catIndex) => (
-          <div key={category} className="space-y-5">
-            <h3 className="text-xs md:text-sm font-mono text-accent uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
-              <span className="h-px w-4 bg-accent/30" />
-              {category}
-            </h3>
-            
-            <div className="space-y-5">
-              {SKILLS.filter(s => s.category === category).map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: (catIndex * 0.2) + (index * 0.05) }}
-                  className="group"
+        <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+          {SKILL_GROUPS.map((g, i) => {
+            const Icon = g.icon;
+            const flagship = i < 2;
+            return (
+              <Reveal key={g.label} delay={i * 0.05}>
+                <div
+                  className={`relative h-full p-7 md:p-8 ${
+                    flagship ? 'bg-surface/60' : 'bg-bg'
+                  }`}
                 >
-                  <div className="flex justify-between mb-1.5">
-                    <span className="text-sm md:text-base font-bold text-fg group-hover:text-accent transition-colors">
-                      {skill.name}
-                    </span>
-                    <span className="text-xs font-mono text-dim">
-                      {skill.level}%
-                    </span>
+                  {flagship && (
+                    <div className="grid-lines pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+                  )}
+                  <div className="relative flex items-center gap-3">
+                    <Icon size={18} className="text-accent" />
+                    <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-fg">
+                      {g.label}
+                    </h3>
                   </div>
-                  
-                  <div className="h-1.5 w-full bg-surface border border-border rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      className="h-full bg-gradient-to-r from-accent/40 to-accent shadow-[0_0_5px_rgba(var(--accent-rgb),0.3)]"
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+                  <ul className="relative mt-5 flex flex-wrap gap-2">
+                    {g.items.map((item) => (
+                      <li
+                        key={item}
+                        className="border border-border bg-bg/70 px-3 py-1.5 font-mono text-[0.78rem] tracking-tight text-fg/85 transition-colors hover:border-accent/50 hover:text-accent"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
 
-      {/* Additional Habilities */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="mt-12 p-6 md:p-8 border border-border bg-surface/20 rounded-xl text-center"
-      >
-        <h3 className="text-base font-bold text-fg mb-4">Outras Habilidades</h3>
-        <p className="text-sm md:text-base text-dim leading-relaxed">
-          C (Avançado) • PHP • Análise de Dados • Watson Studio • NLP • Ethical Hacking (Pentest) • Segurança de Redes
-        </p>
-      </motion.div>
+        <Reveal delay={0.1}>
+          <div className="mt-5 flex flex-col gap-4 border border-border bg-surface/20 p-7 sm:flex-row sm:items-center sm:justify-between md:p-8">
+            <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-dim">
+              Idiomas
+            </h3>
+            <ul className="flex flex-wrap gap-x-10 gap-y-3">
+              {LANGUAGES.map((l) => (
+                <li key={l.name} className="flex items-baseline gap-3">
+                  <span className="font-display text-lg font-medium text-fg">{l.name}</span>
+                  <span className="font-mono text-xs uppercase tracking-wider text-accent">
+                    {l.level}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
