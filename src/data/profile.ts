@@ -72,10 +72,10 @@ export const EXPERIENCE: ExperienceItem[] = [
     summary:
       'Liderança técnica de um sistema de Deep Learning para classificação automática de embriões humanos, em parceria com pesquisa de mestrado.',
     points: [
-      'Definição da arquitetura da solução e treinamento de modelos em PyTorch (ResNet-18 com validação cruzada estratificada k-fold).',
+      'Definição da arquitetura da solução e treinamento de modelos em PyTorch (ResNet-18 com validação cruzada estratificada k-fold) para a classificação de embriões.',
+      'Preparação de artigo científico com os resultados do pipeline de classificação de embriões, para submissão à conferência Latin.Science 2026.',
       'Desenvolvimento da API e integração da Inteligência Artificial à aplicação web.',
-      'Segmentação de imagens de microscopia eletrônica (YOLOv8-seg) para identificar estruturas do parasita Trypanosoma cruzi.',
-      'Preparação de artigo científico com os resultados do pipeline de classificação, para submissão à conferência Latin.Science 2026.',
+      'Em projeto distinto, segmentação de imagens de microscopia eletrônica (YOLOv8-seg) para identificar estruturas do parasita Trypanosoma cruzi.',
     ],
     tags: ['PyTorch', 'ResNet-18', 'YOLOv8-seg', 'Deep Learning', 'FastAPI', 'Pesquisa'],
   },
