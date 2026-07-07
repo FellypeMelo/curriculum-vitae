@@ -1,10 +1,9 @@
-import { Mail, Phone, Github, Linkedin, MapPin, ArrowUpRight } from 'lucide-react';
+import { Mail, Github, Linkedin, MapPin, ArrowUpRight } from 'lucide-react';
 import { PROFILE } from '../../data/profile';
 import { Reveal } from '../common/Reveal';
 
 const CHANNELS = [
   { icon: Mail, label: 'Email', value: PROFILE.email, href: `mailto:${PROFILE.email}` },
-  { icon: Phone, label: 'Telefone', value: PROFILE.phone, href: PROFILE.phoneHref },
   { icon: Github, label: 'GitHub', value: PROFILE.githubLabel, href: PROFILE.github },
   { icon: Linkedin, label: 'LinkedIn', value: PROFILE.linkedinLabel, href: PROFILE.linkedin },
 ];

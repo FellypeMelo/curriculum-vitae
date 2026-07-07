@@ -25,8 +25,6 @@ export const PROFILE = {
     'Inteligência Artificial',
   ],
   location: 'Rio de Janeiro, RJ',
-  phone: '(21) 96738-0963',
-  phoneHref: 'tel:+5521967380963',
   email: 'fellypesamuel1@hotmail.com',
   github: 'https://github.com/FellypeMelo',
   githubLabel: 'github.com/FellypeMelo',
