@@ -1,81 +1,64 @@
-# Curriculum Vitae - Fellype Samuel
+# Curriculum Vitae - Fellype Samuel de Melo
 
-![Status](https://img.shields.io/badge/Status-Development-blue)
+![Status](https://img.shields.io/badge/Status-Online-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## 📖 Sobre o Projeto
+## Sobre o projeto
 
-Este projeto é um **Portfólio/Curriculum Vitae** interativo e moderno, desenvolvido para apresentar minhas habilidades, experiências e projetos como **Analista de Sistemas & Desenvolvedor Full Stack**.
+Portfólio / currículo interativo de página única que apresenta **Fellype Samuel de Melo**
+como **Software Engineer** com foco em arquitetura de software, engenharia de software e
+Inteligência Artificial aplicada.
 
-A aplicação foi construída com foco em performance, responsividade e uma experiência de usuário rica, utilizando tecnologias web modernas e elementos 3D.
+A interface segue uma linguagem editorial-técnica ("Ink & Signal"): tipografia expressiva,
+grade de prancheta em hairline, tema claro/escuro e um grafo de arquitetura generativo em
+canvas na dobra inicial. Todo o movimento respeita `prefers-reduced-motion`.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias
 
-O projeto foi desenvolvido utilizando as seguintes tecnologias e bibliotecas:
+- **[React 19](https://react.dev/)** + **[TypeScript](https://www.typescriptlang.org/)**
+- **[Vite](https://vitejs.dev/)** para build e dev server
+- **[Tailwind CSS v4](https://tailwindcss.com/)** com tokens de tema em CSS custom properties
+- **[Framer Motion](https://www.framer.com/motion/)** para reveals em scroll
+- **[Lucide React](https://github.com/lucide-icons/lucide)** para ícones
+- **Fontes self-hosted** via Fontsource: Bricolage Grotesque (display), Archivo (corpo), Geist Mono (dados)
+- **Canvas 2D** para o grafo de arquitetura (sem dependências pesadas)
 
-- **[React](https://react.dev/)**: Biblioteca JavaScript para construção de interfaces de usuário.
-- **[TypeScript](https://www.typescriptlang.org/)**: Superset do JavaScript que adiciona tipagem estática.
-- **[Vite](https://vitejs.dev/)**: Build tool rápida e leve para desenvolvimento web moderno.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utility-first para estilização rápida e responsiva.
-- **[Lucide React](https://github.com/lucide-icons/lucide)**: Coleção de ícones SVG limpos e consistentes.
-- **[React Three Fiber](https://docs.pmnd.rs/react-three-fiber)** (se aplicável, baseado na estrutura de pastas `3d`): Renderizador React para Three.js, permitindo elementos 3D na web.
-- **[Framer Motion](https://www.framer.com/motion/)** (provável, verificar uso): Biblioteca de animações para React.
-
-## 📂 Estrutura do Projeto
-
-A estrutura de diretórios do projeto é organizada da seguinte forma:
+## Estrutura
 
 ```
 src/
-├── components/       # Componentes React reutilizáveis
-│   ├── 3d/           # Componentes relacionados a elementos 3D
-│   ├── sections/     # Seções principais da página (Hero, About, etc.)
-│   └── ui/           # Componentes de interface genéricos (Botões, Cards, etc.)
-├── data/             # Dados estáticos (perfil, experiências, habilidades)
-├── types/            # Definições de tipos TypeScript (se houver)
-├── App.tsx           # Componente principal da aplicação
-└── main.tsx          # Ponto de entrada da aplicação
+├── components/
+│   ├── common/       # Reveal (wrapper de animação em scroll)
+│   ├── layout/       # Nav (barra + toggle de tema + seção ativa)
+│   ├── sections/     # Hero, About, Experience, Projects, Publications,
+│   │                 # Skills, Education, Certifications, Contact
+│   └── visual/       # ArchGraph (canvas generativo)
+├── data/profile.ts   # Conteúdo do currículo (fonte única de verdade)
+├── lib/hooks.ts      # useTheme, useActiveSection
+├── index.css         # Tokens de tema, base, utilitários
+├── App.tsx
+└── main.tsx
 ```
 
-## 🛠️ Instalação e Execução
-
-Siga os passos abaixo para rodar o projeto localmente:
-
-1.  **Clone o repositório:**
-
-    ```bash
-    git clone https://github.com/FellypeMelo/curriculum-vitae.git
-    cd curriculum-vitae
-    ```
-
-2.  **Instale as dependências:**
-
-    ```bash
-    npm install
-    ```
-
-3.  **Execute o servidor de desenvolvimento:**
-
-    ```bash
-    npm run dev
-    ```
-
-4.  **Acesse a aplicação:**
-    Abra seu navegador e acesse `http://localhost:5173`.
-
-## 🏗️ Build para Produção
-
-Para gerar a versão otimizada para produção:
+## Executar localmente
 
 ```bash
-npm run build
+npm install
+npm run dev      # http://localhost:5173
 ```
 
-Os arquivos gerados estarão na pasta `dist`.
+## Build de produção
 
-## 📄 Licença
+```bash
+npm run build    # gera ./dist
+```
 
-Este projeto está licenciado sob a licença [MIT](./LICENSE).
+O deploy é feito para **GitHub Pages** pelo workflow em `.github/workflows/deploy.yml`,
+que publica o conteúdo de `dist/` a cada push na branch `main`.
+
+## Licença
+
+Licenciado sob [MIT](./LICENSE).
 
 ---
 

@@ -1,120 +1,179 @@
 @import "tailwindcss";
-@plugin "tailwindcss-animate";
-@plugin "@tailwindcss/typography";
 
-@theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', monospace;
-
-  --color-bg: #0a0c0a;
-  --color-surface: #111311;
-  --color-fg: #e2e6e0;
-  --color-dim: #5a6353;
-  --color-accent: #6ee7b7;
-  --color-accent-dim: #1a3a2a;
-  --color-glitch-red: #ff4d4d;
-  --color-glitch-blue: #4d4dff;
-  --color-border: #232623;
-}
+/* ============================================================
+   TOKENS — "Ink & Signal" (cool slate neutrals + rust accent)
+   One accent hue, tuned per theme for WCAG AA on both grounds.
+   ============================================================ */
 
 :root {
-  --bg: #0a0c0a;
-  --surface: #111311;
-  --fg: #e2e6e0;
-  --dim: #5a6353;
-  --accent: #6ee7b7;
-  --accent-dim: #1a3a2a;
-  --glitch-red: #ff4d4d;
-  --glitch-blue: #4d4dff;
-  --border: #232623;
-  
-  --mono: 'Geist Mono', 'SF Mono', monospace;
-  --sans: 'Inter', 'Noto Sans', sans-serif;
+  /* Light (paper) — the base. Cool off-white, not warm cream. */
+  --c-bg: #ecede8;
+  --c-surface: #f5f5f1;
+  --c-surface-2: #e2e3dd;
+  --c-fg: #191b1e;
+  --c-dim: #565c63;
+  --c-border: #d2d4cd;
+  --c-hairline: rgb(25 27 30 / 0.09);
+  --c-accent: #bc4a26;
+  --c-accent-fg: #f7f7f3;
+  --c-accent-soft: rgb(188 74 38 / 0.10);
+  --c-shadow: rgb(25 27 30 / 0.10);
 }
 
-* {
-  margin: 0;
-  padding: 0;
+/* Auto dark — only when the user has NOT explicitly chosen a theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --c-bg: #121418;
+    --c-surface: #181b20;
+    --c-surface-2: #1f232a;
+    --c-fg: #e8e9e3;
+    --c-dim: #8a9099;
+    --c-border: #282c33;
+    --c-hairline: rgb(232 233 227 / 0.08);
+    --c-accent: #ea6c44;
+    --c-accent-fg: #121418;
+    --c-accent-soft: rgb(234 108 68 / 0.14);
+    --c-shadow: rgb(0 0 0 / 0.40);
+  }
+}
+
+/* Explicit toggle wins over the media query, in both directions. */
+:root[data-theme="dark"] {
+  --c-bg: #121418;
+  --c-surface: #181b20;
+  --c-surface-2: #1f232a;
+  --c-fg: #e8e9e3;
+  --c-dim: #8a9099;
+  --c-border: #282c33;
+  --c-hairline: rgb(232 233 227 / 0.08);
+  --c-accent: #e4623a;
+  --c-accent-fg: #121418;
+  --c-accent-soft: rgb(228 98 58 / 0.13);
+  --c-shadow: rgb(0 0 0 / 0.40);
+}
+
+:root[data-theme="light"] {
+  --c-bg: #ecede8;
+  --c-surface: #f5f5f1;
+  --c-surface-2: #e2e3dd;
+  --c-fg: #191b1e;
+  --c-dim: #565c63;
+  --c-border: #d2d4cd;
+  --c-hairline: rgb(25 27 30 / 0.09);
+  --c-accent: #bc4a26;
+  --c-accent-fg: #f7f7f3;
+  --c-accent-soft: rgb(188 74 38 / 0.10);
+  --c-shadow: rgb(25 27 30 / 0.10);
+}
+
+/* Map tokens into Tailwind utilities (inline = resolved live, so theme swaps work). */
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-fg: var(--c-fg);
+  --color-dim: var(--c-dim);
+  --color-border: var(--c-border);
+  --color-accent: var(--c-accent);
+  --color-accent-fg: var(--c-accent-fg);
+
+  --font-display: 'Bricolage Grotesque Variable', 'Archivo Variable', system-ui, sans-serif;
+  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', monospace;
+
+  --radius: 3px;
+  --radius-lg: 6px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
-  font-family: var(--sans);
-  background-color: var(--bg);
-  color: var(--fg);
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--c-bg);
+  color: var(--c-fg);
+  font-feature-settings: "cv11", "ss01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* Terminal app doesn't have body scroll */
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Glitch Effect Utility */
-.glitch {
-  position: relative;
-  display: inline-block;
+::selection {
+  background: var(--c-accent);
+  color: var(--c-accent-fg);
 }
 
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-.glitch:hover::before {
-  opacity: 0.8;
-  color: var(--glitch-red);
-  z-index: -1;
-  animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-}
-
-.glitch:hover::after {
-  opacity: 0.8;
-  color: var(--glitch-blue);
-  z-index: -2;
-  animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
-}
-
-@keyframes glitch-anim {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 1px); }
-  40% { transform: translate(-2px, -1px); }
-  60% { transform: translate(2px, 1px); }
-  80% { transform: translate(2px, -1px); }
-  100% { transform: translate(0); }
-}
-
-/* Custom Scrollbar for Terminal aesthetic */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
+  background: var(--c-border);
+  border: 3px solid var(--c-bg);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--c-dim); }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Blueprint hairline grid — organizes the page, not decoration-only. */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, var(--c-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--c-hairline) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--dim);
+.accent-soft { background-color: var(--c-accent-soft); }
+.border-hair { border-color: var(--c-hairline); }
+
+/* Kicker label (small mono caps). Used sparingly. */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-dim);
 }
 
-/* Utilities */
-.font-mono { font-family: var(--mono); }
-.font-sans { font-family: var(--sans); }
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

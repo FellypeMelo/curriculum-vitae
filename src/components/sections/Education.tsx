@@ -1,49 +1,38 @@
-import { motion } from 'framer-motion';
 import { EDUCATION } from '../../data/profile';
+import { Reveal } from '../common/Reveal';
 
-/**
- * Education Section Component.
- */
 export function Education() {
   return (
-    <section className="py-12 md:py-20 max-w-6xl mx-auto">
-      <h2 
-        id="education-header"
-        className="text-4xl md:text-5xl font-bold text-fg mb-12 tracking-tighter"
-      >
-        Formação <span className="text-accent">Acadêmica</span>
-      </h2>
+    <section id="formacao" className="border-b border-border py-24 md:py-32">
+      <div className="mx-auto max-w-[1240px] px-5 md:px-8">
+        <Reveal>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-fg md:text-5xl">
+            Formação
+          </h2>
+        </Reveal>
 
-      <div className="grid grid-cols-1 gap-6 md:gap-8">
-        {EDUCATION.map((edu, index) => (
-          <motion.div
-            key={`${edu.institution}-${index}`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="group p-8 md:p-10 bg-surface/30 border border-border rounded-2xl hover:border-accent/30 transition-all flex flex-col md:flex-row md:items-start gap-6 md:gap-8"
-          >
-            <div className="flex-1">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-fg group-hover:text-accent transition-colors">
-                    {edu.course}
-                  </h3>
-                  <p className="text-base md:text-lg text-accent/80 font-mono mt-0.5">
-                    {edu.institution}
-                  </p>
+        <ol className="mt-14 max-w-3xl border-l border-border pl-8 md:pl-12">
+          {EDUCATION.map((edu, i) => (
+            <Reveal key={edu.institution} delay={i * 0.06}>
+              <li className="relative pb-12 last:pb-0">
+                <span
+                  className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 border border-accent bg-bg md:-left-[calc(3rem+5px)]"
+                  aria-hidden="true"
+                />
+                <div className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
+                  {edu.period}
                 </div>
-                <div className="px-3 py-1 bg-surface border border-border rounded-full text-xs text-dim font-mono w-fit">
-                  {edu.status}
-                </div>
-              </div>
-              <p className="text-base md:text-lg lg:text-xl text-fg/70 leading-relaxed italic">
-                {edu.details}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+                <h3 className="mt-2 font-display text-xl font-semibold text-fg md:text-2xl">
+                  {edu.course}
+                </h3>
+                <div className="mt-0.5 font-mono text-sm text-dim">{edu.institution}</div>
+                <p className="mt-3 max-w-[58ch] text-base leading-relaxed text-fg/75">
+                  {edu.details}
+                </p>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

@@ -1,65 +1,61 @@
-import { motion } from 'framer-motion';
 import { EXPERIENCE } from '../../data/profile';
+import { Reveal } from '../common/Reveal';
 
-/**
- * Experience Section Component.
- * Displays professional history in a terminal log format.
- */
 export function Experience() {
   return (
-    <section className="py-8 md:py-12 max-w-5xl">
-      <h2 
-        id="experience-header"
-        className="text-3xl md:text-4xl font-bold text-fg mb-10 tracking-tighter"
-      >
-        Experiência <span className="text-accent">Profissional</span>
-      </h2>
+    <section id="experiencia" className="border-b border-border py-24 md:py-32">
+      <div className="mx-auto max-w-[1240px] px-5 md:px-8">
+        <Reveal>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-fg md:text-5xl">
+            Onde tenho atuado
+          </h2>
+        </Reveal>
 
-      <div className="space-y-6">
-        {EXPERIENCE.map((exp, index) => (
-          <motion.div
-            key={`${exp.company}-${index}`}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="relative pl-6 pb-6 border-l border-border/50 last:border-0 last:pb-0"
-          >
-            {/* Timeline Dot */}
-            <div className="absolute left-[-4px] top-0 w-2 h-2 bg-accent rounded-full border border-bg shadow-[0_0_8px_rgba(var(--accent-rgb),0.5)]" />
-            
-            <div className="bg-surface/30 p-5 md:p-6 rounded-lg border border-border hover:border-accent/30 transition-all group">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+        <div className="mt-14 divide-y divide-border border-t border-border">
+          {EXPERIENCE.map((exp, i) => (
+            <Reveal key={exp.company} delay={i * 0.06}>
+              <article className="grid grid-cols-1 gap-6 py-10 md:grid-cols-[minmax(0,15rem)_1fr] md:gap-12 md:py-12">
+                <div className="md:pt-1">
+                  <div className="font-mono text-xs uppercase tracking-[0.14em] text-dim">
+                    {exp.period}
+                  </div>
+                  <div className="mt-3 font-display text-xl font-semibold text-fg">
+                    {exp.company}
+                  </div>
+                </div>
+
                 <div>
-                  <h3 className="text-lg md:text-xl font-bold text-fg group-hover:text-accent transition-colors">
+                  <h3 className="font-display text-lg font-medium text-accent md:text-xl">
                     {exp.role}
                   </h3>
-                  <p className="text-xs md:text-sm text-accent/80 font-mono mt-0.5">
-                    {exp.company}
+                  <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-fg/85 md:text-lg">
+                    {exp.summary}
                   </p>
-                </div>
-                <div className="px-2.5 py-0.5 bg-accent/5 border border-accent/20 rounded-full text-[10px] text-accent font-mono w-fit">
-                  {exp.period}
-                </div>
-              </div>
 
-              <p className="text-sm md:text-base text-fg/80 leading-relaxed mb-5">
-                {exp.description}
-              </p>
+                  <ul className="mt-6 grid gap-3">
+                    {exp.points.map((p) => (
+                      <li key={p} className="flex gap-3 text-sm leading-relaxed text-dim md:text-base">
+                        <span className="mt-2 h-px w-4 shrink-0 bg-accent/70" aria-hidden="true" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-              <div className="flex flex-wrap gap-2">
-                {exp.tags.map(tag => (
-                  <span 
-                    key={tag}
-                    className="px-2 py-0.5 bg-surface border border-border rounded text-[0.65rem] font-mono text-dim group-hover:border-accent/20 transition-colors"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        ))}
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {exp.tags.map((t) => (
+                      <li
+                        key={t}
+                        className="border border-border px-2.5 py-1 font-mono text-[0.7rem] tracking-tight text-dim"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
