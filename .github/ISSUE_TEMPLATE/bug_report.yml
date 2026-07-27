@@ -1,0 +1,67 @@
+name: Bug report
+description: Report something that is broken or behaving incorrectly on the site or in the build.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. For security vulnerabilities, please use
+        GitHub's private vulnerability reporting instead (see `SECURITY.md`) rather than a
+        public issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: Tell us what you saw.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen instead?
+    validations:
+      required: false
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this? Include URLs, screen size, or specific sections if relevant.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser and OS (and device, if mobile). If this is a local dev/build issue, include your Node.js version instead.
+      placeholder: e.g. Chrome 126 on Windows 11, or Node.js v20.x running `npm run build`
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant console output / build logs
+      description: Paste any errors from the browser console or the terminal. This will be formatted as code automatically.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: This is not a security vulnerability report (those go through private reporting — see SECURITY.md).
+          required: true

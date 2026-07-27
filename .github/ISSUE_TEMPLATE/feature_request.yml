@@ -1,0 +1,49 @@
+name: Feature request
+description: Suggest an improvement or new capability for the site.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a personal CV/portfolio project with a single maintainer. Please note that the
+        code and design are proprietary (see `LICENSE`) — feature requests here are for
+        improving this specific site, not for reuse of its design elsewhere.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Is your request related to something that's missing, confusing, or hard to use today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that would help (links, mockups, examples from other sites, etc.)
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
