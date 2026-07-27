@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local AI-tooling profile — contains API credentials, must never be committed
+.openclaude-profile.json
