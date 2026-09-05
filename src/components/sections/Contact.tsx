@@ -27,7 +27,7 @@ export function Contact() {
             </p>
             <a
               href={`mailto:${PROFILE.email}`}
-              className="group mt-9 inline-flex items-center gap-2 border border-fg/80 bg-fg px-6 py-3.5 font-mono text-xs uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-fg"
+              className="group mt-9 inline-flex items-center gap-2 border border-fg/80 bg-fg px-6 py-3.5 font-mono text-xs uppercase tracking-wider text-bg transition-all hover:border-accent hover:bg-accent hover:text-accent-fg active:scale-[0.98]"
             >
               Enviar email
               <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -49,9 +49,9 @@ export function Contact() {
                       href={c.href}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noreferrer' : undefined}
-                      className="group flex items-center gap-4 py-5 transition-colors"
+                      className="group flex items-center gap-4 py-5 transition-colors active:opacity-80"
                     >
-                      <span className="grid h-10 w-10 shrink-0 place-items-center border border-border text-dim transition-colors group-hover:border-accent group-hover:text-accent">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center border border-border text-dim transition-all group-hover:border-accent group-hover:text-accent group-active:scale-[0.96]">
                         <Icon size={17} />
                       </span>
                       <span className="min-w-0 flex-1">

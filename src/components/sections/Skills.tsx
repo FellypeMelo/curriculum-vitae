@@ -23,7 +23,7 @@ export function Skills() {
               <Reveal key={g.label} delay={i * 0.05}>
                 <div
                   className={`relative h-full p-7 md:p-8 ${
-                    flagship ? 'bg-surface/60' : 'bg-bg'
+                    flagship ? 'depth-layer bg-surface/60' : 'bg-bg'
                   }`}
                 >
                   {flagship && (
@@ -39,7 +39,7 @@ export function Skills() {
                     {g.items.map((item) => (
                       <li
                         key={item}
-                        className="border border-border bg-bg/70 px-3 py-1.5 font-mono text-[0.78rem] tracking-tight text-fg/85 transition-colors hover:border-accent/50 hover:text-accent"
+                        className="border border-border bg-bg/70 px-3 py-1.5 font-mono text-[0.78rem] tracking-tight text-fg/85 transition-all hover:border-accent/50 hover:text-accent active:scale-[0.97]"
                       >
                         {item}
                       </li>

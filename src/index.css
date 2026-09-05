@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 /* ============================================================
-   TOKENS — "Ink & Signal" (cool slate neutrals + rust accent)
+   TOKENS: "Ink & Signal" (cool slate neutrals + rust accent)
    One accent hue, tuned per theme for WCAG AA on both grounds.
    ============================================================ */
 
 :root {
-  /* Light (paper) — the base. Cool off-white, not warm cream. */
+  /* Light (paper) base. Cool off-white, not warm cream. */
   --c-bg: #ecede8;
   --c-surface: #f5f5f1;
   --c-surface-2: #e2e3dd;
@@ -20,7 +20,7 @@
   --c-shadow: rgb(25 27 30 / 0.10);
 }
 
-/* Auto dark — only when the user has NOT explicitly chosen a theme. */
+/* Auto dark: only when the user has NOT explicitly chosen a theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --c-bg: #121418;
@@ -143,7 +143,7 @@ body {
 .font-display { font-family: var(--font-display); }
 .font-mono { font-family: var(--font-mono); }
 
-/* Blueprint hairline grid — organizes the page, not decoration-only. */
+/* Blueprint hairline grid: organizes the page, not decoration-only. */
 .grid-lines {
   background-image:
     linear-gradient(to right, var(--c-hairline) 1px, transparent 1px),
@@ -153,6 +153,54 @@ body {
 
 .accent-soft { background-color: var(--c-accent-soft); }
 .border-hair { border-color: var(--c-hairline); }
+
+/* Dimensional & 3D Layering Tokens */
+.perspective-container {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Layer refraction highlight: crisp 1px top highlight simulating tactile glass/metal */
+.depth-layer {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 4px 20px -2px var(--c-shadow);
+}
+
+:root[data-theme="light"] .depth-layer {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.8),
+    0 4px 16px -2px var(--c-shadow);
+}
+
+/* Interactive Spotlight Card with cursor coordinate illumination */
+.spotlight-card {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--c-accent-soft),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
 
 /* Kicker label (small mono caps). Used sparingly. */
 .kicker {
@@ -175,5 +223,6 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    transform: none !important;
   }
 }

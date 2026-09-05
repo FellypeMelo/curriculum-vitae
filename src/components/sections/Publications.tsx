@@ -18,7 +18,7 @@ export function Publications() {
         <div className="mt-12 grid gap-5">
           {published.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.06}>
-              <article className="relative overflow-hidden border border-accent/40 bg-surface/40 p-8 md:p-12">
+              <article className="depth-layer relative overflow-hidden border border-accent/40 bg-surface/40 p-8 md:p-12">
                 <div className="grid-lines pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
                 <div className="relative">
                   <div className="flex flex-wrap items-center gap-3">
@@ -44,7 +44,7 @@ export function Publications() {
                       href={p.doiHref}
                       target="_blank"
                       rel="noreferrer"
-                      className="group mt-7 inline-flex items-center gap-2 border border-fg/80 bg-fg px-5 py-3 font-mono text-xs uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-fg"
+                      className="group mt-7 inline-flex items-center gap-2 border border-fg/80 bg-fg px-5 py-3 font-mono text-xs uppercase tracking-wider text-bg transition-all hover:border-accent hover:bg-accent hover:text-accent-fg active:scale-[0.98]"
                     >
                       DOI {p.doi}
                       <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

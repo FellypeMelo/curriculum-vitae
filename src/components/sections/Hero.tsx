@@ -17,7 +17,7 @@ export function Hero() {
       className="relative flex min-h-[100dvh] items-center overflow-hidden"
     >
       <div className="mx-auto grid w-full max-w-[1240px] grid-cols-1 items-center gap-10 px-5 pt-28 pb-16 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pt-24">
-        {/* Left — type */}
+        {/* Left: type */}
         <div className="relative z-10">
           <motion.p {...rise(0)} className="kicker">
             Rio de Janeiro · Software Engineer
@@ -41,14 +41,14 @@ export function Hero() {
           <motion.div {...rise(0.28)} className="mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#projetos"
-              className="group inline-flex items-center gap-2 border border-fg/80 bg-fg px-5 py-3 font-mono text-xs uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-fg"
+              className="group inline-flex items-center gap-2 border border-fg/80 bg-fg px-5 py-3 font-mono text-xs uppercase tracking-wider text-bg transition-all hover:border-accent hover:bg-accent hover:text-accent-fg active:scale-[0.98]"
             >
               Ver projetos
               <ArrowDown size={15} className="transition-transform group-hover:translate-y-0.5" />
             </a>
             <a
               href="#contato"
-              className="inline-flex items-center border border-border px-5 py-3 font-mono text-xs uppercase tracking-wider text-fg transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex items-center border border-border px-5 py-3 font-mono text-xs uppercase tracking-wider text-fg transition-all hover:border-accent hover:text-accent active:scale-[0.98]"
             >
               Contato
             </a>
@@ -58,7 +58,7 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="grid h-11 w-11 place-items-center border border-border text-dim transition-colors hover:border-accent hover:text-accent"
+                className="grid h-11 w-11 place-items-center border border-border text-dim transition-all hover:border-accent hover:text-accent active:scale-[0.96]"
               >
                 <Github size={17} />
               </a>
@@ -67,7 +67,7 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="grid h-11 w-11 place-items-center border border-border text-dim transition-colors hover:border-accent hover:text-accent"
+                className="grid h-11 w-11 place-items-center border border-border text-dim transition-all hover:border-accent hover:text-accent active:scale-[0.96]"
               >
                 <Linkedin size={17} />
               </a>
@@ -75,23 +75,24 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — generative architecture graph inside a drafting frame */}
+        {/* Right: 3D interactive architecture cluster inside a drafting frame */}
         <motion.div
           initial={reduce ? false : { opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          className="relative perspective-container"
         >
-          <div className="relative h-[280px] w-full border border-border bg-surface/40 sm:h-[360px] lg:h-[520px]">
-            <div className="absolute inset-0 grid-lines opacity-60" />
+          <div className="depth-layer relative h-[280px] w-full border border-border bg-surface/40 sm:h-[360px] lg:h-[520px]">
+            <div className="grid-lines pointer-events-none absolute inset-0 opacity-60" />
             <ArchGraph className="absolute inset-0 h-full w-full" />
             {/* Drafting corner ticks */}
             <Corner className="left-[-1px] top-[-1px]" />
             <Corner className="right-[-1px] top-[-1px] rotate-90" />
             <Corner className="right-[-1px] bottom-[-1px] rotate-180" />
             <Corner className="left-[-1px] bottom-[-1px] -rotate-90" />
-            <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.2em] text-dim">
-              system.graph
+            <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-dim">
+              <span className="inline-block h-1.5 w-1.5 bg-accent" />
+              <span>spatial.system.graph</span>
             </div>
           </div>
         </motion.div>

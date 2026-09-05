@@ -56,13 +56,13 @@ export function Nav() {
             type="button"
             onClick={toggle}
             aria-label={theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'}
-            className="grid h-9 w-9 place-items-center border border-border text-dim transition-colors hover:border-accent hover:text-accent"
+            className="grid h-9 w-9 place-items-center border border-border text-dim transition-all hover:border-accent hover:text-accent active:scale-[0.96]"
           >
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <a
             href="#contato"
-            className="group flex items-center gap-1.5 border border-fg/80 bg-fg px-4 py-2 font-mono text-xs uppercase tracking-wider text-bg transition-colors hover:border-accent hover:bg-accent hover:text-accent-fg"
+            className="group flex items-center gap-1.5 border border-fg/80 bg-fg px-4 py-2 font-mono text-xs uppercase tracking-wider text-bg transition-all hover:border-accent hover:bg-accent hover:text-accent-fg active:scale-[0.98]"
           >
             Contato
             <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
