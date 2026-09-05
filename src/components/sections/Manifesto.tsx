@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function Manifesto() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
   const words = [
@@ -29,25 +30,37 @@ export function Manifesto() {
       const wordElements = textRef.current?.querySelectorAll('.scrub-word');
       if (!wordElements || wordElements.length === 0) return;
 
-      gsap.fromTo(
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      tl.fromTo(
         wordElements,
-        { opacity: 0.12, filter: 'blur(2px)', y: 4 },
+        { opacity: 0.15, y: 3 },
         {
           opacity: 1,
-          filter: 'blur(0px)',
           y: 0,
-          stagger: 0.1,
+          stagger: 0.05,
           ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: '+=130%',
-            pin: true,
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-          },
-        }
+        },
+        0
       );
+
+      if (panelsRef.current) {
+        tl.fromTo(
+          panelsRef.current,
+          { opacity: 0.25, y: 16 },
+          { opacity: 1, y: 0, ease: 'power2.out' },
+          0.5
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -57,11 +70,11 @@ export function Manifesto() {
     <section
       id="perfil"
       ref={containerRef}
-      className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden border-b border-border bg-surface/30 px-5 py-24 md:px-8 md:py-32"
+      className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden border-b border-border bg-surface/30 backdrop-blur-xs px-5 py-20 md:px-8 md:py-28"
     >
       <div className="grid-lines pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
       
-      {/* Decorative architectural coordinates */}
+      {/* Architectural boundary coordinates */}
       <div className="pointer-events-none absolute left-6 top-8 font-mono text-[10px] uppercase tracking-[0.22em] text-dim">
         thesis.statement // core.foundations
       </div>
@@ -69,21 +82,23 @@ export function Manifesto() {
         system.invariants // 2026
       </div>
 
-      <div className="relative mx-auto max-w-[1100px] text-center md:text-left">
-        <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-          Arquitetura & Engenharia
-        </span>
+      <div className="relative mx-auto w-full max-w-[1140px]">
+        <div className="mb-4">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+            Arquitetura & Engenharia
+          </span>
+        </div>
 
         <p
           ref={textRef}
-          className="mt-8 font-display text-3xl font-semibold leading-[1.25] tracking-tight text-fg sm:text-4xl md:text-5xl lg:text-[3.8rem] text-balance"
+          className="font-display text-2xl font-semibold leading-[1.28] tracking-tight text-fg sm:text-3xl md:text-4xl lg:text-[3.4rem]"
         >
           {words.map((word, idx) => {
             const isHighlight = highlights.has(word);
             return (
               <span
                 key={idx}
-                className={`scrub-word inline-block mr-[0.3em] transition-colors ${
+                className={`scrub-word inline-block mr-[0.28em] transition-colors ${
                   isHighlight ? 'text-accent' : 'text-fg'
                 }`}
                 style={{ opacity: reduce ? 1 : 0.15 }}
@@ -94,21 +109,25 @@ export function Manifesto() {
           })}
         </p>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 border-t border-border pt-10 sm:grid-cols-2 md:gap-16">
-          <div>
-            <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-dim">
+        <div
+          ref={panelsRef}
+          className="mt-10 grid grid-cols-1 gap-6 border-t border-border pt-8 sm:grid-cols-2 md:gap-12"
+          style={{ opacity: reduce ? 1 : 0.4 }}
+        >
+          <div className="depth-layer border border-border/80 bg-surface/60 p-6 md:p-8">
+            <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
               Resumo & Formação
             </h3>
-            <p className="mt-3 text-base leading-relaxed text-fg/85 md:text-lg">
+            <p className="mt-3 text-sm leading-relaxed text-fg/85 md:text-base">
               {PROFILE.summary}
             </p>
           </div>
 
-          <div>
+          <div className="depth-layer border border-border/80 bg-surface/60 p-6 md:p-8">
             <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-dim">
               Como trabalho
             </h3>
-            <p className="mt-3 text-base leading-relaxed text-fg/85 md:text-lg">
+            <p className="mt-3 text-sm leading-relaxed text-fg/85 md:text-base">
               {PROFILE.practices}
             </p>
           </div>

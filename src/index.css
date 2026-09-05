@@ -179,7 +179,7 @@ body {
 /* Interactive Spotlight Card with cursor coordinate illumination */
 .spotlight-card {
   position: relative;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  transition: border-color 0.25s ease;
 }
 
 .spotlight-card::before {
@@ -216,6 +216,23 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -223,6 +240,5 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    transform: none !important;
   }
 }

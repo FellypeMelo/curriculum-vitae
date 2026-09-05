@@ -15,10 +15,7 @@ export function Contact() {
       <div className="relative mx-auto max-w-[1240px] px-5 md:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
           <Reveal>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-              Contato
-            </p>
-            <h2 className="mt-6 max-w-[16ch] font-display text-4xl font-bold leading-[1.02] tracking-tight text-fg text-balance md:text-6xl">
+            <h2 className="max-w-[16ch] font-display text-4xl font-bold leading-[1.02] tracking-tight text-fg text-balance md:text-6xl">
               Vamos construir algo bem arquitetado.
             </h2>
             <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-dim md:text-lg">

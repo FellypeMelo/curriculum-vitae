@@ -16,32 +16,37 @@ export function ProjectsStack() {
 
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>('.stack-card-item');
+      if (!cards.length) return;
 
       cards.forEach((card, i) => {
-        if (i === cards.length - 1) return; // Last card does not scale down
+        if (i === cards.length - 1) return; // Last card stays active
 
         const nextCard = cards[i + 1];
 
-        // Pin current card when it hits top
+        // Pin current card comfortably below the fixed navbar
         ScrollTrigger.create({
           trigger: card,
-          start: 'top top',
+          start: 'top 12%',
           endTrigger: cards[cards.length - 1],
-          end: 'top top',
+          end: 'top 12%',
           pin: true,
           pinSpacing: false,
+          invalidateOnRefresh: true,
         });
 
-        // Scale down and dim when the next card arrives
+        // Depth perspective transition: shrink, blur, and dim as next card docks
         gsap.to(card, {
-          scale: 0.92,
-          opacity: 0.45,
+          scale: 0.93 - i * 0.015,
+          y: -14 * (cards.length - 1 - i),
+          opacity: 0.38,
+          filter: 'blur(2px)',
           ease: 'none',
           scrollTrigger: {
             trigger: nextCard,
-            start: 'top bottom',
-            end: 'top top',
+            start: 'top 75%',
+            end: 'top 12%',
             scrub: true,
+            invalidateOnRefresh: true,
           },
         });
       });
@@ -51,9 +56,9 @@ export function ProjectsStack() {
   }, [reduce]);
 
   return (
-    <section id="projetos" ref={containerRef} className="relative border-b border-border bg-bg py-24 md:py-32">
+    <section id="projetos" ref={containerRef} className="relative border-b border-border py-24 md:py-36">
       <div className="mx-auto max-w-[1240px] px-5 md:px-8">
-        <div className="mb-14">
+        <div className="mb-14 md:mb-20">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
             Engenharia & Sistemas
           </span>
@@ -61,41 +66,47 @@ export function ProjectsStack() {
             Projetos Selecionados
           </h2>
           <p className="mt-4 max-w-[62ch] text-base leading-relaxed text-dim md:text-lg">
-            Sistemas conduzidos da concepção e isolamento à entrega em produção.
-            Passe pelo baralho de projetos para examinar a arquitetura e os desafios superados.
+            Sistemas conduzidos da concepção e isolamento de domínio à entrega em produção.
+            O baralho interativo empilha as soluções com análise de requisitos e desafios superados.
           </p>
         </div>
 
-        <div className="relative space-y-16 md:space-y-24">
+        {/* Stack Deck Container */}
+        <div className="relative pb-24">
           {PROJECTS.map((p, idx) => {
             const Icon = p.icon;
             const isFeatured = idx === 0;
+            const indexStr = `0${idx + 1}`;
 
             return (
               <div
                 key={p.name}
-                className="stack-card-item sticky top-24 min-h-[580px] w-full"
+                className="stack-card-item mb-20 w-full md:mb-32 last:mb-0"
               >
                 <TiltCard
                   featured={isFeatured}
-                  className={`group relative flex h-full flex-col overflow-hidden border border-border p-8 md:p-12 ${
-                    isFeatured ? 'bg-surface/90 border-accent/60' : 'bg-surface/80 hover:border-accent/40'
+                  className={`group relative flex flex-col overflow-hidden border p-7 md:p-12 backdrop-blur-md depth-layer transition-shadow ${
+                    isFeatured
+                      ? 'border-accent/60 bg-surface/85 shadow-lg'
+                      : 'border-border/80 bg-surface/75 hover:border-accent/40'
                   }`}
                 >
                   {isFeatured && (
                     <div className="grid-lines pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
                   )}
 
-                  <div className="relative flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+                  <div className="relative flex flex-wrap items-center justify-between gap-4 border-b border-border/80 pb-6">
                     <div className="flex items-center gap-4">
                       <span className="grid h-12 w-12 place-items-center border border-border text-accent transition-all group-hover:border-accent group-hover:scale-105">
                         <Icon size={24} />
                       </span>
                       <div>
-                        <span className="font-mono text-xs uppercase tracking-wider text-dim">
-                          {p.kind}
-                        </span>
-                        <div className="font-mono text-[11px] text-accent">
+                        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-dim">
+                          <span>PROJ.{indexStr}</span>
+                          <span>·</span>
+                          <span>{p.kind}</span>
+                        </div>
+                        <div className="font-mono text-[11px] text-accent font-medium">
                           {p.role}
                         </div>
                       </div>
@@ -129,11 +140,11 @@ export function ProjectsStack() {
                     </ul>
                   </div>
 
-                  <ul className="relative mt-auto flex flex-wrap gap-2 pt-8">
+                  <ul className="relative mt-8 flex flex-wrap gap-2 pt-6 border-t border-border/60">
                     {p.stack.map((s) => (
                       <li
                         key={s}
-                        className="border border-border bg-bg/80 px-3 py-1 font-mono text-xs tracking-tight text-dim transition-colors group-hover:border-accent/40 group-hover:text-fg"
+                        className="border border-border/80 bg-bg/80 px-3 py-1 font-mono text-xs tracking-tight text-dim transition-colors group-hover:border-accent/40 group-hover:text-fg"
                       >
                         {s}
                       </li>

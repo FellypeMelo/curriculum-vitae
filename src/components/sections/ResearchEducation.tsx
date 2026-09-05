@@ -12,10 +12,7 @@ export function ResearchEducation() {
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           {/* Left Column: Fixed / Sticky Academic Stance & Degree Milestone */}
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-              Pesquisa & Credenciais
-            </span>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-fg md:text-5xl text-balance">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-fg md:text-5xl text-balance">
               Rigor científico e formação em engenharia.
             </h2>
             <p className="mt-6 text-base leading-relaxed text-dim md:text-lg">

@@ -7,28 +7,29 @@ interface Point3D {
 }
 
 interface NodeState {
-  // Base coordinates in local space (-1 to 1)
   base: Point3D;
-  // Exploded architecture coordinates
   arch: Point3D;
-  // Neural web coordinates
   neural: Point3D;
-  // Consolidated system coordinates
   system: Point3D;
   tier: 0 | 1 | 2; // Domain, Application, Infrastructure
   hub: boolean;
   pulsePhase: number;
+  label?: string;
+}
+
+interface Particle3D {
+  x: number;
+  y: number;
+  z: number;
+  speed: number;
+  phase: number;
 }
 
 /**
  * Continuous 3D Spatial Canvas:
  * Renders an uninterrupted, full-screen 3D world across the entire scroll journey.
- * Morphs seamlessly through 5 distinct geometric and spatial phases:
- * Phase 1: Blueprint Polyhedron
- * Phase 2: Exploded 3-Tier Clean Architecture Planes
- * Phase 3: Volumetric Neural Web with pulsing synapses
- * Phase 4: Consolidated System Core Ring
- * Phase 5: Digital Terminal Compass Reticle
+ * Features high-contrast architectural geometry, traveling pulse signals,
+ * ambient spatial dust, and dynamic morphing across 5 chapters.
  */
 export function WorldCanvas3D() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,7 +47,8 @@ export function WorldCanvas3D() {
       line: '#888',
       node: '#aaa',
       accent: '#ea6c44',
-      glow: 'rgba(234, 108, 68, 0.15)',
+      glow: 'rgba(234, 108, 68, 0.25)',
+      dim: '#666',
     };
 
     const readColors = () => {
@@ -55,7 +57,8 @@ export function WorldCanvas3D() {
         line: cs.getPropertyValue('--c-border').trim() || '#888',
         node: cs.getPropertyValue('--c-dim').trim() || '#aaa',
         accent: cs.getPropertyValue('--c-accent').trim() || '#ea6c44',
-        glow: cs.getPropertyValue('--c-accent-soft').trim() || 'rgba(234, 108, 68, 0.15)',
+        glow: cs.getPropertyValue('--c-accent-soft').trim() || 'rgba(234, 108, 68, 0.25)',
+        dim: cs.getPropertyValue('--c-dim').trim() || '#666',
       };
     };
     readColors();
@@ -86,9 +89,17 @@ export function WorldCanvas3D() {
       targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
 
-    // Initialize nodes
-    const NODE_COUNT = 48;
+    // Initialize 44 architectural nodes
+    const NODE_COUNT = 44;
     const nodes: NodeState[] = [];
+
+    const HUB_LABELS: Record<number, string> = {
+      0: 'SYS.CORE',
+      6: 'DOMAIN.LOGIC',
+      14: 'CLEAN.ARCH',
+      22: 'AI.PIPELINE',
+      30: 'INFRA.STORE',
+    };
 
     for (let i = 0; i < NODE_COUNT; i++) {
       const tier = (i % 3) as 0 | 1 | 2;
@@ -98,34 +109,34 @@ export function WorldCanvas3D() {
 
       // Phase 1: Spherical Polyhedron
       const p1: Point3D = {
-        x: Math.cos(theta) * Math.sin(phi),
-        y: Math.sin(theta) * Math.sin(phi),
-        z: Math.cos(phi),
+        x: Math.cos(theta) * Math.sin(phi) * 1.1,
+        y: Math.sin(theta) * Math.sin(phi) * 1.1,
+        z: Math.cos(phi) * 1.1,
       };
 
-      // Phase 2: Exploded Architecture (3 distinct horizontal isometric planes)
-      const planeY = (tier - 1) * 0.7;
-      const rad2 = 0.35 + (i % 8) * 0.08;
+      // Phase 2: Exploded Architecture (3 isometric horizontal planes)
+      const planeY = (tier - 1) * 0.75;
+      const rad2 = 0.4 + (i % 7) * 0.1;
       const p2: Point3D = {
         x: Math.cos(angle) * rad2,
         y: planeY,
         z: Math.sin(angle) * rad2,
       };
 
-      // Phase 3: Volumetric Neural Web (cluster cloud)
+      // Phase 3: Volumetric Neural Web
       const p3: Point3D = {
-        x: (Math.sin(i * 1.7) * 0.9),
-        y: (Math.cos(i * 2.3) * 0.9),
-        z: (Math.sin(i * 3.1) * 0.9),
+        x: Math.sin(i * 1.8) * 1.05,
+        y: Math.cos(i * 2.4) * 0.95,
+        z: Math.sin(i * 3.2) * 1.05,
       };
 
-      // Phase 4: Consolidated Ring of 6 server nodes
-      const ringGroup = i % 6;
-      const ringAngle = (ringGroup / 6) * Math.PI * 2;
+      // Phase 4 & 5: Consolidated Ring of server nodes
+      const ringGroup = i % 8;
+      const ringAngle = (ringGroup / 8) * Math.PI * 2;
       const p4: Point3D = {
-        x: Math.cos(ringAngle) * 0.9 + (Math.random() - 0.5) * 0.15,
-        y: (tier - 1) * 0.3,
-        z: Math.sin(ringAngle) * 0.9 + (Math.random() - 0.5) * 0.15,
+        x: Math.cos(ringAngle) * 0.95 + ((i % 3) - 1) * 0.1,
+        y: (tier - 1) * 0.35,
+        z: Math.sin(ringAngle) * 0.95 + ((i % 3) - 1) * 0.1,
       };
 
       nodes.push({
@@ -134,8 +145,22 @@ export function WorldCanvas3D() {
         neural: p3,
         system: p4,
         tier,
-        hub: i % 5 === 0,
+        hub: i in HUB_LABELS,
         pulsePhase: Math.random() * Math.PI * 2,
+        label: HUB_LABELS[i],
+      });
+    }
+
+    // Ambient floating spatial particles
+    const PARTICLE_COUNT = 36;
+    const particles: Particle3D[] = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: (Math.random() - 0.5) * 3.2,
+        y: (Math.random() - 0.5) * 3.2,
+        z: (Math.random() - 0.5) * 3.2,
+        speed: 0.2 + Math.random() * 0.3,
+        phase: Math.random() * Math.PI * 2,
       });
     }
 
@@ -151,24 +176,20 @@ export function WorldCanvas3D() {
       onScroll();
     };
 
-    // Linear interpolation helper
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     // 3D Matrix Projection
     const project = (pt: Point3D, rotX: number, rotY: number, camDist: number, scale: number) => {
-      // Rotation around Y (yaw)
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
       const x1 = pt.x * cosY - pt.z * sinY;
       const z1 = pt.z * cosY + pt.x * sinY;
 
-      // Rotation around X (pitch)
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
       const y2 = pt.y * cosX - z1 * sinX;
       const z2 = z1 * cosX + pt.y * sinX;
 
-      // Perspective divide
       const fov = camDist / (camDist + z2);
       return {
         px: w * 0.5 + x1 * scale * fov,
@@ -182,69 +203,80 @@ export function WorldCanvas3D() {
     let time = 0;
 
     const render = () => {
-      time += 0.015;
+      time += 0.016;
 
-      // Smooth scroll and mouse easing
-      scrollProgress += (targetScrollProgress - scrollProgress) * 0.08;
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
+      // Easing for scroll progress and mouse position
+      scrollProgress += (targetScrollProgress - scrollProgress) * 0.09;
+      mouseX += (targetMouseX - mouseX) * 0.06;
+      mouseY += (targetMouseY - mouseY) * 0.06;
 
       ctx.clearRect(0, 0, w, h);
 
-      // Camera orchestration based on scroll progress (0.0 to 1.0)
-      let camPitch = 0.4 + mouseY * 0.25;
+      // Camera orchestration based on scroll progress
+      let camPitch = 0.35 + mouseY * 0.25;
       let camYaw = time * 0.2 + mouseX * 0.35;
       let camDist = 3.4;
-      const baseScale = Math.min(w, h) * 0.38;
+      const baseScale = Math.min(w, h) * 0.4;
 
       if (scrollProgress < 0.25) {
         // Scene 1: Initial Blueprint Polyhedron
-        camPitch = 0.35 + scrollProgress * 0.5 + mouseY * 0.2;
-        camYaw = time * 0.25 + scrollProgress * Math.PI + mouseX * 0.3;
+        const t = scrollProgress / 0.25;
+        camPitch = lerp(0.3, 0.65, t) + mouseY * 0.2;
+        camYaw = time * 0.22 + lerp(0, 1.2, t) + mouseX * 0.3;
         camDist = 3.4;
       } else if (scrollProgress < 0.55) {
         // Scene 2: Exploded Architecture Planes
         const t = (scrollProgress - 0.25) / 0.3;
-        camPitch = lerp(0.5, 0.85, t) + mouseY * 0.15;
-        camYaw = lerp(0.8, 1.8, t) + mouseX * 0.2;
-        camDist = lerp(3.4, 2.6, t);
+        camPitch = lerp(0.65, 0.9, t) + mouseY * 0.15;
+        camYaw = lerp(1.2, 2.2, t) + mouseX * 0.25;
+        camDist = lerp(3.4, 2.7, t);
       } else if (scrollProgress < 0.8) {
         // Scene 3: Volumetric Neural Web
         const t = (scrollProgress - 0.55) / 0.25;
-        camPitch = lerp(0.85, -0.3, t) + mouseY * 0.2;
-        camYaw = lerp(1.8, 3.4, t) + mouseX * 0.35;
-        camDist = lerp(2.6, 2.3, t);
+        camPitch = lerp(0.9, -0.25, t) + mouseY * 0.2;
+        camYaw = lerp(2.2, 3.8, t) + mouseX * 0.35;
+        camDist = lerp(2.7, 2.4, t);
       } else {
-        // Scene 4 & 5: Consolidated Systems & Terminal Reticle
+        // Scene 4 & 5: Consolidated Systems Ring
         const t = (scrollProgress - 0.8) / 0.2;
-        camPitch = lerp(-0.3, 0.1, t) + mouseY * 0.1;
-        camYaw = lerp(3.4, 4.5, t) + mouseX * 0.2;
-        camDist = lerp(2.3, 3.8, t);
+        camPitch = lerp(-0.25, 0.15, t) + mouseY * 0.12;
+        camYaw = lerp(3.8, 4.8, t) + mouseX * 0.2;
+        camDist = lerp(2.4, 3.6, t);
+      }
+
+      // Render ambient drifting spatial particles
+      for (const p of particles) {
+        const driftY = p.y + Math.sin(time * p.speed + p.phase) * 0.15;
+        const driftX = p.x + Math.cos(time * p.speed * 0.7 + p.phase) * 0.1;
+        const projP = project({ x: driftX, y: driftY, z: p.z }, camPitch, camYaw, camDist, baseScale);
+        if (projP.fov > 0) {
+          const pAlpha = Math.max(0.08, Math.min(0.5, 0.5 - projP.depth * 0.15));
+          ctx.fillStyle = colors.accent;
+          ctx.globalAlpha = pAlpha;
+          ctx.fillRect(projP.px - 1, projP.py - 1, 2, 2);
+        }
       }
 
       // Compute current interpolated node positions
-      const currentPoints: { pt: Point3D; hub: boolean; tier: number }[] = [];
+      const currentPoints: { pt: Point3D; hub: boolean; tier: number; label?: string }[] = [];
 
       for (const n of nodes) {
         let curX = n.base.x;
         let curY = n.base.y;
         let curZ = n.base.z;
 
-        if (scrollProgress < 0.3) {
-          // Morph between Polyhedron and Exploded Architecture
-          const t = Math.max(0, (scrollProgress - 0.05) / 0.25);
+        if (scrollProgress < 0.28) {
+          const t = Math.max(0, (scrollProgress - 0.04) / 0.24);
           curX = lerp(n.base.x, n.arch.x, t);
           curY = lerp(n.base.y, n.arch.y, t);
           curZ = lerp(n.base.z, n.arch.z, t);
-        } else if (scrollProgress < 0.65) {
-          // Morph between Exploded Architecture and Neural Web
-          const t = (scrollProgress - 0.3) / 0.35;
+        } else if (scrollProgress < 0.62) {
+          const t = (scrollProgress - 0.28) / 0.34;
           curX = lerp(n.arch.x, n.neural.x, t);
           curY = lerp(n.arch.y, n.neural.y, t);
           curZ = lerp(n.arch.z, n.neural.z, t);
         } else {
-          // Morph between Neural Web and Consolidated Systems
-          const t = Math.min(1, (scrollProgress - 0.65) / 0.3);
+          const t = Math.min(1, (scrollProgress - 0.62) / 0.32);
           curX = lerp(n.neural.x, n.system.x, t);
           curY = lerp(n.neural.y, n.system.y, t);
           curZ = lerp(n.neural.z, n.system.z, t);
@@ -254,6 +286,7 @@ export function WorldCanvas3D() {
           pt: { x: curX, y: curY, z: curZ },
           hub: n.hub,
           tier: n.tier,
+          label: n.label,
         });
       }
 
@@ -263,20 +296,20 @@ export function WorldCanvas3D() {
         proj: project(item.pt, camPitch, camYaw, camDist, baseScale),
       }));
 
-      // Render architectural plane bounds during Phase 2
-      if (scrollProgress > 0.15 && scrollProgress < 0.65) {
-        const planeAlpha = Math.sin(((scrollProgress - 0.15) / 0.5) * Math.PI) * 0.25;
-        const tiersY = [-0.7, 0.0, 0.7];
+      // Render architectural plane bounds during Phase 2 (Manifesto & Architecture)
+      if (scrollProgress > 0.12 && scrollProgress < 0.68) {
+        const planeAlpha = Math.sin(((scrollProgress - 0.12) / 0.56) * Math.PI) * 0.45;
+        const tiersY = [-0.75, 0.0, 0.75];
         tiersY.forEach((py) => {
-          const corner1 = project({ x: -1.2, y: py, z: -1.2 }, camPitch, camYaw, camDist, baseScale);
-          const corner2 = project({ x: 1.2, y: py, z: -1.2 }, camPitch, camYaw, camDist, baseScale);
-          const corner3 = project({ x: 1.2, y: py, z: 1.2 }, camPitch, camYaw, camDist, baseScale);
-          const corner4 = project({ x: -1.2, y: py, z: 1.2 }, camPitch, camYaw, camDist, baseScale);
+          const corner1 = project({ x: -1.3, y: py, z: -1.3 }, camPitch, camYaw, camDist, baseScale);
+          const corner2 = project({ x: 1.3, y: py, z: -1.3 }, camPitch, camYaw, camDist, baseScale);
+          const corner3 = project({ x: 1.3, y: py, z: 1.3 }, camPitch, camYaw, camDist, baseScale);
+          const corner4 = project({ x: -1.3, y: py, z: 1.3 }, camPitch, camYaw, camDist, baseScale);
 
           ctx.strokeStyle = colors.accent;
           ctx.globalAlpha = planeAlpha;
-          ctx.lineWidth = 0.8;
-          ctx.setLineDash([4, 6]);
+          ctx.lineWidth = 1.0;
+          ctx.setLineDash([5, 5]);
           ctx.beginPath();
           ctx.moveTo(corner1.px, corner1.py);
           ctx.lineTo(corner2.px, corner2.py);
@@ -288,8 +321,8 @@ export function WorldCanvas3D() {
         });
       }
 
-      // Draw dynamic connective 3D lines
-      const LINK_DIST = lerp(0.55, 0.75, scrollProgress);
+      // Draw high-contrast connective 3D lines
+      const LINK_DIST = lerp(0.6, 0.82, scrollProgress);
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
           const a = projected[i];
@@ -302,17 +335,27 @@ export function WorldCanvas3D() {
           if (dist < LINK_DIST) {
             const proximity = 1 - dist / LINK_DIST;
             const avgDepth = (a.proj.depth + b.proj.depth) * 0.5;
-            const depthFade = Math.max(0.08, Math.min(0.85, 1 - avgDepth * 0.4));
+            const depthFade = Math.max(0.18, Math.min(1.0, 1.1 - avgDepth * 0.35));
             const isHighlight = a.hub || b.hub;
 
             ctx.strokeStyle = isHighlight ? colors.accent : colors.line;
-            ctx.globalAlpha = (isHighlight ? 0.45 : 0.2) * proximity * depthFade;
-            ctx.lineWidth = isHighlight ? 1.2 : 0.7;
+            ctx.globalAlpha = Math.min(0.9, (isHighlight ? 0.72 : 0.42) * (0.35 + 0.65 * proximity) * depthFade);
+            ctx.lineWidth = isHighlight ? 1.6 : 1.0;
 
             ctx.beginPath();
             ctx.moveTo(a.proj.px, a.proj.py);
             ctx.lineTo(b.proj.px, b.proj.py);
             ctx.stroke();
+
+            // Energy signal pulse packet along highlighted links
+            if (isHighlight) {
+              const pulseT = ((time * 0.9 + (i + j) * 0.18) % 1);
+              const pulsePx = lerp(a.proj.px, b.proj.px, pulseT);
+              const pulsePy = lerp(a.proj.py, b.proj.py, pulseT);
+              ctx.fillStyle = colors.accent;
+              ctx.globalAlpha = 0.85 * proximity * depthFade;
+              ctx.fillRect(pulsePx - 2, pulsePy - 2, 4, 4);
+            }
           }
         }
       }
@@ -320,24 +363,45 @@ export function WorldCanvas3D() {
       // Depth z-sorting (Painter's algorithm)
       projected.sort((a, b) => b.proj.depth - a.proj.depth);
 
-      // Draw volumetric nodes
+      // Draw volumetric nodes and technical labels
       for (const item of projected) {
-        const { proj, hub } = item;
-        const depthAlpha = Math.max(0.15, Math.min(1, 1 - proj.depth * 0.35));
-        const size = (hub ? 7 : 3.5) * proj.fov;
+        const { proj, hub, label } = item;
+        const depthAlpha = Math.max(0.2, Math.min(1, 1 - proj.depth * 0.3));
+        const size = (hub ? 8 : 4.5) * proj.fov;
 
+        // Radial glow under hubs
+        if (hub) {
+          const glowRadius = size * 3.5;
+          const grad = ctx.createRadialGradient(proj.px, proj.py, 0, proj.px, proj.py, glowRadius);
+          grad.addColorStop(0, colors.glow);
+          grad.addColorStop(1, 'transparent');
+          ctx.fillStyle = grad;
+          ctx.globalAlpha = depthAlpha * 0.7;
+          ctx.beginPath();
+          ctx.arc(proj.px, proj.py, glowRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Drafting node core
         ctx.fillStyle = hub ? colors.accent : colors.node;
-        ctx.globalAlpha = depthAlpha * (hub ? 0.95 : 0.6);
-
-        // Drafting square node
+        ctx.globalAlpha = depthAlpha * (hub ? 1.0 : 0.75);
         ctx.fillRect(proj.px - size * 0.5, proj.py - size * 0.5, size, size);
 
+        // Framing reticle for hubs
         if (hub) {
           ctx.strokeStyle = colors.accent;
-          ctx.lineWidth = 1;
-          ctx.globalAlpha = depthAlpha * 0.5;
+          ctx.lineWidth = 1.2;
+          ctx.globalAlpha = depthAlpha * 0.85;
           const ring = size * 2.2;
           ctx.strokeRect(proj.px - ring * 0.5, proj.py - ring * 0.5, ring, ring);
+
+          // Technical micro-annotation
+          if (label && proj.px > 80 && proj.px < w - 80) {
+            ctx.fillStyle = colors.accent;
+            ctx.font = '9px monospace';
+            ctx.globalAlpha = depthAlpha * 0.75;
+            ctx.fillText(label, proj.px + ring * 0.6, proj.py + 3);
+          }
         }
       }
 
@@ -376,7 +440,7 @@ export function WorldCanvas3D() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-60 transition-opacity duration-1000"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-85 transition-opacity duration-700"
       aria-hidden="true"
     />
   );
