@@ -2,12 +2,11 @@ import { Moon, Sun, ArrowUpRight } from 'lucide-react';
 import { useTheme, useActiveSection } from '../../lib/hooks';
 
 const LINKS = [
-  { id: 'perfil', label: 'Perfil' },
+  { id: 'perfil', label: 'Manifesto' },
   { id: 'experiencia', label: 'Experiência' },
   { id: 'projetos', label: 'Projetos' },
-  { id: 'publicacoes', label: 'Publicações' },
+  { id: 'publicacoes', label: 'Pesquisa & Formação' },
   { id: 'stack', label: 'Stack' },
-  { id: 'formacao', label: 'Formação' },
 ];
 
 export function Nav() {
@@ -30,7 +29,7 @@ export function Nav() {
             FM
           </span>
           <span className="hidden font-mono text-xs tracking-tight text-dim sm:block">
-            Fellype&nbsp;S.&nbsp;de&nbsp;Melo
+            Fellype S. de Melo
           </span>
         </a>
 
