@@ -29,7 +29,7 @@ export const PROFILE = {
     'Inteligência Artificial',
   ],
   location: 'Rio de Janeiro, RJ',
-  email: 'fellypesamuel1@hotmail.com',
+  email: 'fellypesamuel1@gmail.com',
   github: 'https://github.com/FellypeMelo',
   githubLabel: 'github.com/FellypeMelo',
   linkedin: 'https://www.linkedin.com/in/fellype-samuel',
@@ -144,22 +144,6 @@ export const PROJECTS: ProjectItem[] = [
     ],
     stack: ['C++', 'SYCL/DPC++', 'oneAPI', 'ggml', 'Intel Arc B580', 'CMake'],
     icon: Cpu,
-  },
-  {
-    name: 'bio-saas',
-    kind: 'Monorepo de 5 micro-SaaS de conformidade em saúde/estética',
-    status: 'Privado',
-    role: 'Autor único',
-    description:
-      'Monorepo pnpm com 5 aplicações para clínicas de saúde/estética no Brasil, sobre uma espinha dorsal de pacotes comum, endurecida para normas com prazo (RDC 978/2025, CFBM 423/2026, CFM 2.464/2026, RDC 222/2018, LGPD). O núcleo é uma trilha de auditoria em cadeia de hashes assinada por HMAC, pensada para resistir a um atacante privilegiado (DBA, dump restaurado), não só a um invasor externo, com uma tabela de âncora somente-inserção para detectar truncamento de cauda que uma cadeia de hash simples não pegaria. Repositório privado: a descrição cobre apenas arquitetura e algoritmos, sem dados de clientes, esquema interno ou termos comerciais.',
-    points: [
-      'Verificação de janela por sequência monotônica, não por timestamp; evita falso positivo de quebra de cadeia por clock skew.',
-      'Isolamento multi-tenant em duas camadas: filtro de aplicação + Row-Level Security do Postgres (ENABLE+FORCE), provado em CI contra Postgres real autenticado como papel não superusuário, já que o Postgres embarcado (WASM) usado nos testes rápidos roda como superusuário e não consegue provar RLS.',
-      'Bloqueio de SSRF em webhook de tenant com defesa contra TOCTOU: revalida o endereço no momento da conexão via uma função de lookup customizada, cobrindo faixas privadas, CGNAT e o endereço de metadados de nuvem.',
-      '5 jobs reais de CI: segurança (gitleaks + audit), build/teste com gate de cobertura por arquivo ≥90%, integração com Postgres real, integração com S3/MinIO real e matriz Playwright de ponta a ponta para as 5 aplicações.',
-    ],
-    stack: ['TypeScript', 'Fastify', 'Drizzle ORM', 'PostgreSQL RLS', 'S3 Object-Lock', 'Vitest', 'Playwright'],
-    icon: ShieldCheck,
   },
   {
     name: 'Embryo Trainer',
