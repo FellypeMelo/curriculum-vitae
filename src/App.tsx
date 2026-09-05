@@ -6,6 +6,7 @@ import { ProjectsStack } from './components/sections/ProjectsStack';
 import { ResearchEducation } from './components/sections/ResearchEducation';
 import { Skills } from './components/sections/Skills';
 import { Contact } from './components/sections/Contact';
+import { WorldCanvas3D } from './components/visual/WorldCanvas3D';
 
 export default function App() {
   return (
@@ -17,9 +18,12 @@ export default function App() {
         Pular para o conteúdo
       </a>
 
+      {/* Global 3D Space Canvas */}
+      <WorldCanvas3D />
+
       <Nav />
 
-      <main className="overflow-x-hidden w-full max-w-full">
+      <main className="relative z-10 overflow-x-hidden w-full max-w-full">
         <Hero />
         <HeroFacts />
         <Manifesto />
