@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -14,8 +14,7 @@ function currentTheme(): Theme {
 }
 
 /**
- * Theme with an explicit user override persisted to localStorage.
- * No override => follows the OS preference (data-theme attribute absent).
+ * Theme hook for backwards compatibility
  */
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(() =>
@@ -49,7 +48,7 @@ export function useTheme() {
 }
 
 /**
- * Tracks which section is currently in view for the nav rail.
+ * Tracks which section is currently in view for nav rails
  */
 export function useActiveSection(ids: string[]) {
   const [active, setActive] = useState(ids[0] ?? '');
@@ -73,4 +72,89 @@ export function useActiveSection(ids: string[]) {
   }, [ids]);
 
   return active;
+}
+
+/**
+ * Tracks window scroll progress (0 - 100%)
+ */
+export function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const current = (window.scrollY / totalHeight) * 100;
+        setProgress(Math.min(100, Math.max(0, current)));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return progress;
+}
+
+/**
+ * Tracks active section and page indicator based on scroll position
+ */
+export function useActiveSectionTracker(
+  sections: { id: string; num: string }[],
+  offset: number = 200
+) {
+  const [active, setActive] = useState<{ id: string; num: string }>(
+    sections[0] || { id: 'top', num: '01' }
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + offset;
+      let current = sections[0] || { id: 'top', num: '01' };
+
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (el && el.offsetTop <= scrollPos) {
+          current = sec;
+        }
+      }
+
+      setActive((prev) => (prev.id !== current.id ? current : prev));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections, offset]);
+
+  return active;
+}
+
+/**
+ * Clipboard copy hook with animated success feedback
+ */
+export function useClipboardCopy(resetDelay: number = 2200) {
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const copy = useCallback(
+    async (text: string, key: string = text) => {
+      try {
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+          setCopiedKey(key);
+          setTimeout(() => {
+            setCopiedKey((curr) => (curr === key ? null : curr));
+          }, resetDelay);
+          return true;
+        }
+      } catch (err) {
+        console.error('Failed to copy to clipboard', err);
+      }
+      return false;
+    },
+    [resetDelay]
+  );
+
+  return { copiedKey, copy };
 }

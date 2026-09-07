@@ -1,244 +1,269 @@
 @import "tailwindcss";
 
-/* ============================================================
-   TOKENS: "Ink & Signal" (cool slate neutrals + rust accent)
-   One accent hue, tuned per theme for WCAG AA on both grounds.
-   ============================================================ */
-
-:root {
-  /* Light (paper) base. Cool off-white, not warm cream. */
-  --c-bg: #ecede8;
-  --c-surface: #f5f5f1;
-  --c-surface-2: #e2e3dd;
-  --c-fg: #191b1e;
-  --c-dim: #565c63;
-  --c-border: #d2d4cd;
-  --c-hairline: rgb(25 27 30 / 0.09);
-  --c-accent: #bc4a26;
-  --c-accent-fg: #f7f7f3;
-  --c-accent-soft: rgb(188 74 38 / 0.10);
-  --c-shadow: rgb(25 27 30 / 0.10);
-}
-
-/* Auto dark: only when the user has NOT explicitly chosen a theme. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --c-bg: #121418;
-    --c-surface: #181b20;
-    --c-surface-2: #1f232a;
-    --c-fg: #e8e9e3;
-    --c-dim: #8a9099;
-    --c-border: #282c33;
-    --c-hairline: rgb(232 233 227 / 0.08);
-    --c-accent: #ea6c44;
-    --c-accent-fg: #121418;
-    --c-accent-soft: rgb(234 108 68 / 0.14);
-    --c-shadow: rgb(0 0 0 / 0.40);
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    overscroll-behavior: none;
+    font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #fbf9f5;
+    color: #1b1c1a;
+  }
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+  ::selection {
+    background-color: #b42811;
+    color: #ffffff;
   }
 }
 
-/* Explicit toggle wins over the media query, in both directions. */
-:root[data-theme="dark"] {
-  --c-bg: #121418;
-  --c-surface: #181b20;
-  --c-surface-2: #1f232a;
-  --c-fg: #e8e9e3;
-  --c-dim: #8a9099;
-  --c-border: #282c33;
-  --c-hairline: rgb(232 233 227 / 0.08);
-  --c-accent: #e4623a;
-  --c-accent-fg: #121418;
-  --c-accent-soft: rgb(228 98 58 / 0.13);
-  --c-shadow: rgb(0 0 0 / 0.40);
+::-webkit-scrollbar {
+  display: none;
 }
 
-:root[data-theme="light"] {
-  --c-bg: #ecede8;
-  --c-surface: #f5f5f1;
-  --c-surface-2: #e2e3dd;
-  --c-fg: #191b1e;
-  --c-dim: #565c63;
-  --c-border: #d2d4cd;
-  --c-hairline: rgb(25 27 30 / 0.09);
-  --c-accent: #bc4a26;
-  --c-accent-fg: #f7f7f3;
-  --c-accent-soft: rgb(188 74 38 / 0.10);
-  --c-shadow: rgb(25 27 30 / 0.10);
+@theme {
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface: #1b1c1a;
+  --color-tertiary-fixed: #e6e2de;
+  --color-on-secondary-fixed-variant: #8e1200;
+  --color-on-primary-fixed: #1c1c1a;
+  --color-secondary-fixed: #ffdad3;
+  --color-on-secondary: #ffffff;
+  --color-on-primary: #ffffff;
+  --color-surface-container: #efeeea;
+  --color-on-surface-variant: #464742;
+  --color-secondary-container: #fe5d40;
+  --color-on-tertiary-fixed-variant: #484744;
+  --color-on-primary-container: #858382;
+  --color-tertiary-container: #1c1c19;
+  --color-surface-container-high: #eae8e4;
+  --color-tertiary: #000000;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-fixed: #1c1c19;
+  --color-tertiary-fixed-dim: #c9c6c2;
+  --color-inverse-primary: #c9c6c4;
+  --color-on-secondary-container: #5d0800;
+  --color-surface-tint: #5f5e5d;
+  --color-surface-container-highest: #e4e2de;
+  --color-on-error-container: #93000a;
+  --color-on-background: #1b1c1a;
+  --color-on-tertiary-container: #868380;
+  --color-on-primary-fixed-variant: #474745;
+  --color-inverse-surface: #30312e;
+  --color-outline: #777871;
+  --color-primary-fixed-dim: #c9c6c4;
+  --color-error: #ba1a1a;
+  --color-surface: #fbf9f5;
+  --color-on-error: #ffffff;
+  --color-primary-fixed: #e5e2e0;
+  --color-surface-bright: #fbf9f5;
+  --color-on-secondary-fixed: #3f0400;
+  --color-secondary-fixed-dim: #ffb4a5;
+  --color-surface-variant: #e4e2de;
+  --color-primary-container: #1c1c1a;
+  --color-surface-container-low: #f5f3ef;
+  --color-secondary: #b42811;
+  --color-inverse-on-surface: #f2f0ed;
+  --color-primary: #000000;
+  --color-surface-dim: #dbdad6;
+  --color-background: #fbf9f5;
+  --color-error-container: #ffdad6;
+  --color-outline-variant: #c7c7c0;
+
+  --spacing-grid-margin-desktop: 3rem;
+  --spacing-grid-margin-tablet: 1.5rem;
+  --spacing-grid-margin-mobile: 1rem;
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-gutter-tablet: 1rem;
+  --spacing-gutter-mobile: 0.75rem;
+  --spacing-unit-1: 0.25rem;
+  --spacing-unit-2: 0.5rem;
+  --spacing-unit-3: 0.75rem;
+  --spacing-unit-4: 1rem;
+  --spacing-unit-6: 1.5rem;
+  --spacing-unit-8: 2rem;
+  --spacing-unit-12: 3rem;
+  --spacing-unit-16: 4rem;
+  --spacing-unit-24: 6rem;
 }
 
-/* Map tokens into Tailwind utilities (inline = resolved live, so theme swaps work). */
-@theme inline {
-  --color-bg: var(--c-bg);
-  --color-surface: var(--c-surface);
-  --color-surface-2: var(--c-surface-2);
-  --color-fg: var(--c-fg);
-  --color-dim: var(--c-dim);
-  --color-border: var(--c-border);
-  --color-accent: var(--c-accent);
-  --color-accent-fg: var(--c-accent-fg);
-
-  --font-display: 'Bricolage Grotesque Variable', 'Archivo Variable', system-ui, sans-serif;
-  --font-sans: 'Archivo Variable', system-ui, sans-serif;
-  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', monospace;
-
-  --radius: 3px;
-  --radius-lg: 6px;
+/* Typography Utilities matching Swiss Typographic Gazette */
+.font-display-hero,
+.font-headline-xl,
+.font-headline-lg,
+.font-headline-md,
+.font-headline-sm,
+.font-body-lg,
+.font-body-md,
+.font-body-sm,
+.font-label-caps {
+  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ============================================================
-   BASE
-   ============================================================ */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.font-meta-mono,
+.font-meta-mono-sm {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
-  -webkit-text-size-adjust: 100%;
+.text-display-hero {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+.text-display-hero-mobile {
+  font-size: 40px;
+  line-height: 44px;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  background-color: var(--c-bg);
-  color: var(--c-fg);
-  font-feature-settings: "cv11", "ss01";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s ease, color 0.4s ease;
+.text-headline-xl {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
-::selection {
-  background: var(--c-accent);
-  color: var(--c-accent-fg);
+.text-headline-xl-mobile {
+  font-size: 32px;
+  line-height: 36px;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
-:focus-visible {
-  outline: 2px solid var(--c-accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+.text-headline-lg {
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--c-bg); }
-::-webkit-scrollbar-thumb {
-  background: var(--c-border);
-  border: 3px solid var(--c-bg);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover { background: var(--c-dim); }
-
-/* ============================================================
-   UTILITIES
-   ============================================================ */
-
-.font-display { font-family: var(--font-display); }
-.font-mono { font-family: var(--font-mono); }
-
-/* Blueprint hairline grid: organizes the page, not decoration-only. */
-.grid-lines {
-  background-image:
-    linear-gradient(to right, var(--c-hairline) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--c-hairline) 1px, transparent 1px);
-  background-size: 64px 64px;
+.text-headline-md {
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.015em;
+  font-weight: 600;
 }
 
-.accent-soft { background-color: var(--c-accent-soft); }
-.border-hair { border-color: var(--c-hairline); }
-
-/* Dimensional & 3D Layering Tokens */
-.perspective-container {
-  perspective: 1000px;
+.text-headline-sm {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
-.preserve-3d {
-  transform-style: preserve-3d;
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.005em;
+  font-weight: 400;
 }
 
-/* Layer refraction highlight: crisp 1px top highlight simulating tactile glass/metal */
-.depth-layer {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 4px 20px -2px var(--c-shadow);
+.text-body-md {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0em;
+  font-weight: 400;
 }
 
-:root[data-theme="light"] .depth-layer {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.8),
-    0 4px 16px -2px var(--c-shadow);
+.text-body-sm {
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.005em;
+  font-weight: 400;
 }
 
-/* Interactive Spotlight Card with cursor coordinate illumination */
-.spotlight-card {
-  position: relative;
-  transition: border-color 0.25s ease;
+.text-meta-mono {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: radial-gradient(
-    480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    var(--c-accent-soft),
-    transparent 55%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 1;
+.text-meta-mono-sm {
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
-.spotlight-card:hover::before {
-  opacity: 1;
-}
-
-/* Kicker label (small mono caps). Used sparingly. */
-.kicker {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
+.text-label-caps {
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   text-transform: uppercase;
-  color: var(--c-dim);
 }
 
-@keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Swiss Technical Drawing & Reveal Animations */
+.hairline-expand {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hairline-expand.drawn {
+  transform: scaleX(1);
 }
 
-/* Lenis smooth scrolling rules */
-html.lenis, html.lenis body {
-  height: auto;
+.reveal-node {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-node.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+/* Kinetic Stagger Hero Entrance */
+@keyframes heroReveal {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.hero-anim-1 { animation: heroReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+.hero-anim-2 { animation: heroReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+.hero-anim-3 { animation: heroReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.hero-anim-4 { animation: heroReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+.hero-anim-5 { animation: heroReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both; }
+
+/* Pulse telemetry and active states */
+@keyframes technicalBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.telemetry-pulse {
+  animation: technicalBlink 2s infinite ease-in-out;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+/* Flow particle dash for Fig 01 */
+@keyframes flowRight {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+.flow-active {
+  stroke-dasharray: 4, 4;
+  animation: flowRight 0.8s linear infinite;
 }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
+/* Respect Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, ::before, ::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    transform: none !important;
   }
+  .hairline-expand { transform: scaleX(1) !important; }
+  .reveal-node { opacity: 1 !important; transform: none !important; }
 }
