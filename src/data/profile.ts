@@ -26,7 +26,7 @@ export const PROFILE = {
   location: 'Rio de Janeiro, RJ · Brasil',
   locationCoords: "22°54'S 43°12'W",
   status: 'Disponível p/ Projetos & Contratos',
-  email: 'fellypesamuel1@gmail.com',
+  email: 'fellypesamuel1@hotmail.com',
   github: 'https://github.com/FellypeMelo',
   githubLabel: 'github.com/FellypeMelo',
   linkedin: 'https://www.linkedin.com/in/fellype-samuel',
