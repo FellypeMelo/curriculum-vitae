@@ -1,9 +1,12 @@
-import { useClipboardCopy } from '../../lib/hooks';
-import { PROFILE } from '../../data/profile';
+import { useClipboardCopy } from "../../lib/hooks";
+import { useLanguage } from "../../context/LanguageContext";
+import { PROFILE } from "../../data/profile";
 
 export function ContactSection() {
+  const { t, lang } = useLanguage();
   const { copiedKey, copy } = useClipboardCopy();
-  const isEmailCopied = copiedKey === 'email';
+  const c = t.contact;
+  const isEmailCopied = copiedKey === "email";
 
   return (
     <section
@@ -14,13 +17,13 @@ export function ContactSection() {
         {/* Contact Main Headline & Channels */}
         <div className="col-span-12 lg:col-span-8">
           <span className="font-meta-mono text-meta-mono text-secondary font-bold block mb-unit-2">
-            // INITIATE ENGAGEMENT
+            {c.kicker}
           </span>
           <h2 className="font-headline-xl text-headline-xl uppercase text-primary font-bold tracking-tight">
-            VAMOS CONSTRUIR ALGO BEM ARQUITETADO.
+            {c.title}
           </h2>
           <p className="mt-unit-4 font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-            Disponível para posições como Software Engineer / Tech Lead, consultoria em Clean Architecture, pipelines de Inteligência Artificial aplicada ou pesquisas científicas em cooperação institucional.
+            {c.lead}
           </p>
 
           {/* Channels Matrix */}
@@ -29,7 +32,7 @@ export function ContactSection() {
             <div className="p-unit-4 border border-primary bg-surface flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200">
               <div>
                 <span className="font-meta-mono-sm text-meta-mono-sm text-on-surface-variant uppercase">
-                  CANAL PRIMÁRIO // EMAIL
+                  {c.emailCardTitle}
                 </span>
                 <div className="font-headline-sm text-headline-sm text-primary font-bold mt-unit-1 break-all select-all font-mono">
                   {PROFILE.email}
@@ -38,17 +41,19 @@ export function ContactSection() {
               <div className="mt-unit-4 pt-unit-3 border-t border-outline-variant flex justify-between items-center">
                 <button
                   type="button"
-                  onClick={() => copy(PROFILE.email, 'email')}
+                  onClick={() => copy(PROFILE.email, "email")}
                   className={`font-meta-mono text-meta-mono-sm uppercase font-bold flex items-center gap-1 cursor-pointer transition-colors ${
-                    isEmailCopied ? 'text-secondary' : 'text-secondary hover:underline'
+                    isEmailCopied ? "text-secondary" : "text-secondary hover:underline"
                   }`}
                 >
-                  <span>{isEmailCopied ? 'EMAIL COPIADO ✓' : 'COPIAR EMAIL'}</span>
+                  <span>{isEmailCopied ? c.btnEmailCopied : c.btnCopyEmail}</span>
                   <span className="material-symbols-outlined text-[14px]">
-                    {isEmailCopied ? 'check' : 'content_copy'}
+                    {isEmailCopied ? "check" : "content_copy"}
                   </span>
                 </button>
-                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">mail</span>
+                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
+                  mail
+                </span>
               </div>
             </div>
 
@@ -56,7 +61,7 @@ export function ContactSection() {
             <div className="p-unit-4 border border-primary bg-surface flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200">
               <div>
                 <span className="font-meta-mono-sm text-meta-mono-sm text-on-surface-variant uppercase">
-                  CODE ARCHIVE // GITHUB
+                  {c.githubCardTitle}
                 </span>
                 <div className="font-headline-sm text-headline-sm text-primary font-bold mt-unit-1 font-mono">
                   {PROFILE.githubLabel}
@@ -69,10 +74,12 @@ export function ContactSection() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>ABRIR PERFIL</span>
+                  <span>{c.btnOpenProfile}</span>
                   <span className="material-symbols-outlined text-[14px]">open_in_new</span>
                 </a>
-                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">code</span>
+                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
+                  code
+                </span>
               </div>
             </div>
 
@@ -80,7 +87,7 @@ export function ContactSection() {
             <div className="p-unit-4 border border-primary bg-surface flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200">
               <div>
                 <span className="font-meta-mono-sm text-meta-mono-sm text-on-surface-variant uppercase">
-                  NETWORK // LINKEDIN
+                  {c.linkedinCardTitle}
                 </span>
                 <div className="font-headline-sm text-headline-sm text-primary font-bold mt-unit-1 font-mono">
                   {PROFILE.linkedinLabel}
@@ -93,10 +100,12 @@ export function ContactSection() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>CONECTAR</span>
+                  <span>{c.btnConnect}</span>
                   <span className="material-symbols-outlined text-[14px]">open_in_new</span>
                 </a>
-                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">badge</span>
+                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
+                  badge
+                </span>
               </div>
             </div>
 
@@ -104,10 +113,10 @@ export function ContactSection() {
             <div className="p-unit-4 border border-primary bg-surface flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200">
               <div>
                 <span className="font-meta-mono-sm text-meta-mono-sm text-on-surface-variant uppercase">
-                  HUB DE OPERAÇÃO // BASE
+                  {c.locationCardTitle}
                 </span>
                 <div className="font-headline-sm text-headline-sm text-primary font-bold mt-unit-1">
-                  {PROFILE.location}
+                  {lang === "en" ? "Rio de Janeiro, RJ · Brazil" : PROFILE.location}
                 </div>
               </div>
               <div className="mt-unit-4 pt-unit-3 border-t border-outline-variant flex justify-between items-center font-meta-mono text-meta-mono-sm text-on-surface-variant">
@@ -122,26 +131,34 @@ export function ContactSection() {
         <div className="col-span-12 lg:col-span-4 border-t lg:border-t-0 lg:border-l border-primary pt-unit-8 lg:pt-0 lg:pl-unit-8 flex flex-col justify-between">
           <div>
             <div className="font-meta-mono text-meta-mono text-primary font-bold uppercase pb-unit-2 border-b border-primary flex justify-between">
-              <span>SPEC DO DOCUMENTO // COLOPHON</span>
-              <span className="text-secondary">ARCH-SPEC</span>
+              <span>{c.colophonTitle}</span>
+              <span className="text-secondary">{c.colophonTimestamp}</span>
             </div>
 
             <div className="mt-unit-4 space-y-unit-3 font-meta-mono-sm text-meta-mono-sm text-on-surface-variant leading-relaxed">
               <div>
-                <strong className="text-primary block">MOVIMENTO ESTÉTICO:</strong>
-                Die Neue Typographie / Swiss International Typographic Style adaptado à engenharia de documentos digitais com zero abstrações supérfluas.
+                <strong className="text-primary block">
+                  {lang === "en" ? "AESTHETIC SPECIFICATION:" : "MOVIMENTO ESTÉTICO:"}
+                </strong>
+                {c.colophonLead}
               </div>
               <div>
-                <strong className="text-primary block">TIPOGRAFIA:</strong>
-                Hanken Grotesk (Display &amp; Body Editorial) + JetBrains Mono (Metadados Técnicos, Fórmulas &amp; Tabelas).
+                <strong className="text-primary block">
+                  {lang === "en" ? "CORE ENGINE:" : "ENGINE:"}
+                </strong>
+                {c.colophonEngine}
               </div>
               <div>
-                <strong className="text-primary block">GRID MATEMÁTICO:</strong>
-                12 colunas simétricas, calhas de 24px (1.5rem), margens horizontais de 48px (3.0rem), regras de 1px Hairline Black Ink (#111110).
+                <strong className="text-primary block">
+                  {lang === "en" ? "TYPOGRAPHY:" : "TIPOGRAFIA:"}
+                </strong>
+                {c.colophonTypo}
               </div>
               <div>
-                <strong className="text-primary block">PALETA FUNDAMENTAL:</strong>
-                Off-White Paper (#FBF9F5), Ink Black (#111110), Vermilion Accent (#C8371E).
+                <strong className="text-primary block">
+                  {lang === "en" ? "INVARIANTS:" : "INVARIANTE:"}
+                </strong>
+                {c.colophonRules}
               </div>
             </div>
           </div>

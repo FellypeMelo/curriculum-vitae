@@ -34,6 +34,11 @@ export function useTheme() {
 
   const setTheme = (next: Theme) => {
     document.documentElement.setAttribute('data-theme', next);
+    if (next === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     try {
       localStorage.setItem('theme', next);
     } catch {
@@ -41,6 +46,15 @@ export function useTheme() {
     }
     setThemeState(next);
   };
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   const toggle = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
@@ -157,4 +171,23 @@ export function useClipboardCopy(resetDelay: number = 2200) {
   );
 
   return { copiedKey, copy };
+}
+
+/**
+ * Smoothly scrolls to target section taking fixed 80px header into account
+ */
+export function scrollToSection(
+  e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement> | null,
+  id: string
+) {
+  if (e) e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) {
+    const yOffset = -85;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    if (typeof history !== 'undefined' && history.pushState) {
+      history.pushState(null, '', );
+    }
+  }
 }

@@ -19,6 +19,23 @@
       content="Fellype Samuel de Melo. Software Engineer & IA · Tech Lead · Clean Architecture · Pesquisa em Deep Learning Médico e Sistemas Distribuídos."
     />
     <title>FELLYPE MELO // SOFTWARE ENGINEER &amp; IA · ADS · FAETERJ-RIO</title>
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+
+          var urlParams = new URLSearchParams(window.location.search);
+          var lang = urlParams.get('lang') || localStorage.getItem('app_lang');
+          if (lang === 'en' || lang === 'pt') {
+            document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-background text-on-surface antialiased selection:bg-secondary selection:text-on-secondary min-h-screen relative">
     <div id="root"></div>

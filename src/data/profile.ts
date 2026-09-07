@@ -268,33 +268,6 @@ export interface ProjectItem {
 export const PROJECTS: ProjectItem[] = [
   {
     id: 'PROJ.01',
-    name: 'OpenScientific Workbench',
-    category: 'RESEARCH SYSTEMS',
-    kind: 'Plataforma de agentes científicos com isolamento em sandbox',
-    status: 'Repositório Verificado',
-    badge: '80% TEST COVERAGE',
-    role: 'Autor Único (92 commits solo)',
-    headline: 'Plataforma de agentes científicos com isolamento em sandbox e verificação numérica estrita.',
-    description:
-      'Sistema para orquestração determinística de agentes de pesquisa científica. O ambiente executa scripts de modelagem sob um sandbox de baixo nível baseado em Linux bubblewrap (sem privilégios de root, namespaces isolados e filesystem somente-leitura). Possui um duplo portão de validação com revisor numérico operando com tolerância estrita de erro (ε < 1e-5), garantindo convergência e reprodutibilidade analítica absoluta antes da escrita em DAG.',
-    points: [
-      'Execução determinística e hermética de scripts em Linux bubblewrap (bwrap unshare-all) sem privilégios de root.',
-      'Duplo portão de validação numérica com revisor de tolerância estrita de erro (ε ≤ 0.000010).',
-      'Test-to-code ratio de 0.79 linhas de teste por linha de código, com 80.4% de cobertura de branches.',
-      'Engine de orquestração via DAG e escrita de artefatos reproduzíveis.',
-    ],
-    metrics: [
-      { label: 'Sandbox Security:', value: 'bwrap unshare-all' },
-      { label: 'Dual-Gate Numerical Tolerance:', value: 'ε ≤ 0.000010' },
-      { label: 'Test-to-Code Ratio:', value: '0.79 linhas/linha' },
-      { label: 'Total Coverage:', value: '80.4% das branches' },
-    ],
-    stack: ['Linux bubblewrap', 'DAG Execution Engine', 'Numerical Verifier (1e-5)', 'Python 3.12 / Rust'],
-    icon: Binary,
-    github: 'https://github.com/FellypeMelo',
-  },
-  {
-    id: 'PROJ.02',
     name: 'llama-cpp-turboquant-SYCL',
     category: 'GPU COMPUTING',
     kind: 'Port de kernels WHT para SYCL sobre GPU Intel Arc B580',
@@ -315,7 +288,7 @@ export const PROJECTS: ProjectItem[] = [
     github: 'https://github.com/FellypeMelo',
   },
   {
-    id: 'PROJ.03',
+    id: 'PROJ.02',
     name: 'Embryo Trainer & Leakage Eliminator',
     category: 'MEDICAL DEEP LEARNING',
     kind: 'Pipeline de Deep Learning para FIV com isolamento de paciente',
@@ -335,7 +308,7 @@ export const PROJECTS: ProjectItem[] = [
     icon: Microscope,
   },
   {
-    id: 'PROJ.04',
+    id: 'PROJ.03',
     name: 'tino',
     category: 'LOCAL-FIRST',
     kind: 'App de finanças pessoais local-first (Flutter)',
@@ -355,7 +328,7 @@ export const PROJECTS: ProjectItem[] = [
     icon: Wallet,
   },
   {
-    id: 'PROJ.05',
+    id: 'PROJ.04',
     name: 'fecho',
     category: 'STRICT ACCOUNTING',
     kind: 'Livro-caixa local-first para MEI (Flutter)',
@@ -598,7 +571,7 @@ export const SKILL_GROUPS = [
 /* ------------------------------------------------------------------ */
 
 export const SECTIONS = [
-  { id: 'top', num: '01', label: '01 PROFILE' },
+  { id: 'profile', num: '01', label: '01 PROFILE' },
   { id: 'methodology', num: '02', label: '02 ENGINEERING' },
   { id: 'experience', num: '03', label: '03 WORK' },
   { id: 'projects', num: '04', label: '04 PROJECTS' },
