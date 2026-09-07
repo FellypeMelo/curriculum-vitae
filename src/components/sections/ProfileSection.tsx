@@ -50,8 +50,11 @@ export function ProfileSection() {
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-unit-4">
                 <strong className="text-primary">{PROFILE.fullName}</strong> é graduado em Análise e Desenvolvimento de Sistemas pela <strong>FAETERJ-Rio</strong>. Atua como <strong>Tech Lead</strong> e pesquisador em Inteligência Artificial aplicada, com foco no desenvolvimento de sistemas distribuídos robustos, pipelines de Deep Learning médico e arquitetura orientada ao isolamento de domínio.
               </p>
-              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-unit-3">
                 Sua metodologia descarta abordagens empíricas superficiais em favor de projetos orientados a contratos matematicamente defensáveis, separação estrita de camadas e verificabilidade automatizada de ponta a ponta.
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Aplica Clean Architecture, SOLID, Domain-Driven Design, Design Patterns, TDD e Extreme Programming na condução de sistemas escaláveis, utilizando Inteligência Artificial como ferramenta de engenharia para acelerar análise de requisitos, documentação e validação formal.
               </p>
             </div>
 

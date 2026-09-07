@@ -482,6 +482,13 @@ export const CERTIFICATIONS: CertItem[] = [
     icon: BrainCircuit,
   },
   {
+    name: 'Artificial Intelligence Fundamentals',
+    title: 'AI Fundamentals',
+    issuer: 'IBM SkillsBuild',
+    topics: 'Aplicações de IA, chatbots, redes neurais, machine learning e deep learning.',
+    icon: Cpu,
+  },
+  {
     name: 'Java Foundations',
     title: 'Java Foundations',
     issuer: 'ORACLE',
